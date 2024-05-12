@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "schedule_calculator"
+version = "0.1.0"
+description = ""
+authors = ["Digidevemon <digi.deve.mon@tutamail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+PyYAML = "6.0.1"
+
+[tool.poetry.group.test.dependencies]
+pytest = "8.0.2"
+pylint = "3.1.0"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["*_test.py"]
+python_functions = ["it_should_*"]
