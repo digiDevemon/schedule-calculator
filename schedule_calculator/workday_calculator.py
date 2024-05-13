@@ -4,7 +4,7 @@ import datetime
 class WorkDayCalculator:
     HOUR_FORMATTER = "%H:%M"
 
-    def __init__(self, configuration):
+    def __init__(self, configuration: dict):
         self.delta_schedule_standard = self.__get_delta_schedule_standard(configuration)
         self.delta_schedule_short = self.__get_delta_schedule_short(configuration)
         self.delta_launch = self.__get_delta_launch(configuration)
