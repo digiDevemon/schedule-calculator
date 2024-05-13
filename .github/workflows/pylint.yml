@@ -16,12 +16,9 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
-        pip install .
-        pip install pylint
-    - name: this is a poc
-      run: |
-        ./scripts/linux/run-pylint.sh
+        python -m pip install poetry
+        poetry lock
+        poetry install
     - name: Analysing the code with pylint
       run: |
-        pylint schedule_calculator
+        ./scripts/linux/run-pylint.sh
