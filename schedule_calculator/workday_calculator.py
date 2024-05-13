@@ -37,4 +37,4 @@ class WorkDayCalculator:
                 self.delta_schedule_standard, self.delta_schedule_standard)
 
     def __is_today_short_schedule(self) -> bool:
-        return datetime.date.today().strftime(("%A")) == self.short_day
+        return datetime.date.today().strftime("%A") == self.short_day

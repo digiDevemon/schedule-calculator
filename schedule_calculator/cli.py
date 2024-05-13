@@ -5,9 +5,9 @@ from importlib.metadata import version
 
 import yaml
 
+from schedule_calculator.assemblers.time_assembler import TimeFormatter
+from schedule_calculator.assemblers.workday_assembler import WorkDayAssembler
 from schedule_calculator.schedule_journal import ScheduleJournal
-from schedule_calculator.time_assembler import TimeFormatter
-from schedule_calculator.workday_calculator import WorkDayCalculator
 
 
 def build_cli() -> argparse.ArgumentParser:
@@ -55,28 +55,20 @@ def __calculate_worked_day(_args: argparse.Namespace):
     configuration = __load_configuration(_args.config)
 
     time_formatter = TimeFormatter()
-    delta_schedule_standard = time_formatter.get_delta_from_str(configuration["schedule"]["standard"])
-    delta_schedule_short = time_formatter.get_delta_from_str(configuration["schedule"]["short"])
-    delta_launch = time_formatter.get_delta_from_str(configuration["schedule"]["launch"])
-    short_day = configuration["schedule"]["short_day"]
+    workday_calculator = WorkDayAssembler(time_formatter).get_workday_from_configuration(configuration)
 
-    print(WorkDayCalculator(delta_schedule_standard, delta_schedule_short, delta_launch, short_day)
-          .calculate_worked_time(_args.start_hour, _args.end_hour)[0])
+    print(workday_calculator.calculate_worked_time(time_formatter.get_delta_from_str(_args.start_hour),
+                                                   time_formatter.get_delta_from_str(_args.end_hour))[0])
 
 
 def __calculate_time_until_now(_args: argparse.Namespace):
     configuration = __load_configuration(_args.config)
 
     time_formatter = TimeFormatter()
-    delta_schedule_standard = time_formatter.get_delta_from_str(configuration["schedule"]["standard"])
-    delta_schedule_short = time_formatter.get_delta_from_str(configuration["schedule"]["short"])
-    delta_launch = time_formatter.get_delta_from_str(configuration["schedule"]["launch"])
-    short_day = configuration["schedule"]["short_day"]
+    workday_calculator = WorkDayAssembler(time_formatter).get_workday_from_configuration(configuration)
 
-    worked_hours, expected_hours = (
-        WorkDayCalculator(delta_schedule_standard, delta_schedule_short, delta_launch, short_day)
-
-        .calculate_worked_time(_args.start_hour))
+    worked_hours, expected_hours = workday_calculator.calculate_worked_time(
+        time_formatter.get_delta_from_str(_args.start_hour))
 
     print(f"You have worked {worked_hours}. Today you have to work {expected_hours}.")
 
@@ -97,8 +89,7 @@ def __journal_init_parser(subparsers):
 
 
 def __init_journal(_args: argparse.Namespace):
-    configuration = __load_configuration(_args.config)
-    ScheduleJournal(configuration).init()
+    ScheduleJournal().init()
 
 
 def __get_default_config_file_path():
