@@ -18,7 +18,9 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        ./scripts/linux/install.sh
+        python -m pip install poetry
+        poetry lock
+        poetry install
     - name: Analysing the code with pylint
       run: |
         ./scripts/linux/run-pylint.sh
