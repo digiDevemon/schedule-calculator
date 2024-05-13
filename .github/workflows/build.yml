@@ -1,6 +1,8 @@
-name: Pylint
+name: Build
 
-on: [push]
+on:
+  push:
+    branches: [main]
 
 jobs:
   build:
@@ -16,9 +18,10 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        python -m pip install poetry
-        poetry lock
-        poetry install
+        ./scripts/linux/install.sh
     - name: Analysing the code with pylint
       run: |
         ./scripts/linux/run-pylint.sh
+    - name: Analysing the code with pylint
+      run: |
+        ./scripts/linux/run-pytest.sh
