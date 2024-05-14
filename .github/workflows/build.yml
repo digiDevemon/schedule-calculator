@@ -26,3 +26,6 @@ jobs:
     - name: Analysing the code with pylint
       run: |
         ./scripts/linux/run-pylint.sh
+    - name: Run tests with pytest
+      run: |
+        ./scripts/linux/run-pylint.sh
