@@ -1,40 +1,37 @@
 import datetime
 
+from schedule_calculator.clock import Clock
+from schedule_calculator.schedule import Schedule
+
 
 class WorkDayCalculator:
-    HOUR_FORMATTER = "%H:%M"
 
-    def __init__(self, schedule_standard: datetime.timedelta, schedule_short: datetime.timedelta,
-                 delta_launch: datetime.timedelta, short_day: str):
-        self.delta_schedule_standard = schedule_standard
-        self.delta_schedule_short = schedule_short
-        self.delta_launch = delta_launch
-        self.short_day = short_day
+    def __init__(self, schedule: Schedule, clock: Clock = Clock()):
+        self.schedule = schedule
+        self.clock = clock
 
     def calculate_worked_time(self, start_hour: datetime.timedelta,
-                              end_hour: datetime.timedelta = datetime.datetime.now().strftime(HOUR_FORMATTER)) -> (
+                              end_hour: datetime.timedelta = datetime.datetime.now()) -> (
             tuple)[datetime.timedelta, datetime.timedelta]:
 
         worked_time = end_hour - start_hour
 
         if self.__is_today_short_schedule():
-            return worked_time, self.delta_schedule_short
+            return worked_time, self.schedule.short_time
 
-        return worked_time - self.delta_launch, self.delta_schedule_standard
+        return worked_time - self.schedule.launch_time, self.schedule.standard_time
 
     def calculate_extra_time_today(self, start_hour: datetime.timedelta,
-                                   end_hour: datetime.timedelta = datetime.datetime
-                                   .now()
-                                   .strftime(HOUR_FORMATTER)) \
+                                   end_hour: datetime.timedelta = datetime.datetime.now()) \
             -> tuple[datetime.timedelta, datetime.timedelta]:
 
         worked_time = end_hour - start_hour
 
         if self.__is_today_short_schedule():
-            return worked_time - self.delta_schedule_short, self.delta_schedule_short
+            return worked_time - self.schedule.short_time, self.schedule.short_time
 
-        return (worked_time - self.delta_launch -
-                self.delta_schedule_standard, self.delta_schedule_standard)
+        return (worked_time - self.schedule.launch_time -
+                self.schedule.standard_time, self.schedule.standard_time)
 
     def __is_today_short_schedule(self) -> bool:
-        return datetime.date.today().strftime("%A") == self.short_day
+        return self.clock.get_today_day() == self.schedule.short_day
