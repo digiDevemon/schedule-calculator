@@ -28,4 +28,4 @@ jobs:
         ./scripts/linux/run-pylint.sh
     - name: Run tests with pytest
       run: |
-        ./scripts/linux/run-pylint.sh
+        ./scripts/linux/run-pytest.sh
