@@ -47,6 +47,13 @@ def it_should_return_the_expected_standard_delta_hours_when_calculates_worked_ti
                                                             __END_HOUR)[1] == __EXPECTED_STANDARD_DELTA_HOURS
 
 
+def it_should_return_the_expected_standard_delta_hours_when_calculates_worked_time_but_end_hour_is_not_defined(
+        _fake_clock):
+    _fake_clock.set_delta_now(__END_HOUR)
+    assert __get_workday_calculator(_fake_clock).calculate_worked_time(__START_HOUR,
+                                                                       __END_HOUR)[1] == __EXPECTED_STANDARD_DELTA_HOURS
+
+
 def it_should_return_the_expected_short_delta_hours_when_calculates_worked_time(_fake_clock):
     _fake_clock.set_today_day(__SHORT_DAY)
     assert __get_workday_calculator(_fake_clock).calculate_worked_time(__START_HOUR,
@@ -67,6 +74,13 @@ def it_should_return_the_expected_result_when_calculates_extra_time_on_friday(_f
     _fake_clock.set_today_day(__SHORT_DAY)
     assert __get_workday_calculator(_fake_clock).calculate_extra_time_today(__START_HOUR,
                                                                             __END_HOUR_FRIDAY)[
+               0] == __EXPECTED_ZERO_DELTA_HOURS
+
+
+def it_should_return_the_expected_result_when_calculates_extra_time_on_friday_without_end_hour(_fake_clock):
+    _fake_clock.set_today_day(__SHORT_DAY)
+    _fake_clock.set_delta_now(__END_HOUR_FRIDAY)
+    assert __get_workday_calculator(_fake_clock).calculate_extra_time_today(__START_HOUR)[
                0] == __EXPECTED_ZERO_DELTA_HOURS
 
 

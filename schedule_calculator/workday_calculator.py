@@ -11,27 +11,29 @@ class WorkDayCalculator:
         self.clock = clock
 
     def calculate_worked_time(self, start_hour: datetime.timedelta,
-                              end_hour: datetime.timedelta = datetime.datetime.now()) -> (
+                              end_hour: datetime.timedelta = None) -> (
             tuple)[datetime.timedelta, datetime.timedelta]:
 
-        worked_time = end_hour - start_hour
-
         if self.__is_today_short_schedule():
-            return worked_time, self.schedule.short_time
+            return self.__get_worked_time(end_hour, start_hour), self.schedule.short_time
 
-        return worked_time - self.schedule.launch_time, self.schedule.standard_time
+        return self.__get_worked_time(end_hour, start_hour) - self.schedule.launch_time, self.schedule.standard_time
 
     def calculate_extra_time_today(self, start_hour: datetime.timedelta,
-                                   end_hour: datetime.timedelta = datetime.datetime.now()) \
+                                   end_hour: datetime.timedelta = None) \
             -> tuple[datetime.timedelta, datetime.timedelta]:
 
-        worked_time = end_hour - start_hour
-
         if self.__is_today_short_schedule():
-            return worked_time - self.schedule.short_time, self.schedule.short_time
+            return self.__get_worked_time(end_hour, start_hour) - self.schedule.short_time, self.schedule.short_time
 
-        return (worked_time - self.schedule.launch_time -
+        return (self.__get_worked_time(end_hour, start_hour) - self.schedule.launch_time -
                 self.schedule.standard_time, self.schedule.standard_time)
+
+    def __get_worked_time(self, end_hour, start_hour):
+        if not end_hour:
+            end_hour = self.clock.get_delta_now()
+
+        return end_hour - start_hour
 
     def __is_today_short_schedule(self) -> bool:
         return self.clock.get_today_day() == self.schedule.short_day
