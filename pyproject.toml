@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "schedule_calculator"
-version = "0.2.1"
+version = "0.2.2"
 description = ""
 authors = ["Digidevemon <digi.deve.mon@tutamail.com>"]
 readme = "README.md"

@@ -5,7 +5,7 @@ from schedule_calculator.workday_calculator import WorkDayCalculator
 
 class WorkDayAssembler:
 
-    def __init__(self, time_formatter: TimeFormatter):
+    def __init__(self, time_formatter: TimeFormatter = TimeFormatter()):
         self.time_formatter = time_formatter
 
     def get_workday_from_configuration(self, configuration: dict) -> WorkDayCalculator:
