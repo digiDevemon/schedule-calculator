@@ -18,4 +18,4 @@ def it_should_return_the_expected_actual_time_delta():
     clock = Clock()
     today = datetime.datetime.now()
     expected_delta = datetime.timedelta(hours=today.hour, minutes=today.minute)
-    assert clock.get_delta_now() == expected_delta
+    assert clock.get_current_hour() == expected_delta

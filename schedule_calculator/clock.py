@@ -8,7 +8,6 @@ class Clock:
         return datetime.date.today().strftime("%A")
 
     @staticmethod
-    def get_delta_now() -> datetime.timedelta:
-        instant_now = datetime.datetime.now()
-
-        return datetime.timedelta(hours=instant_now.hour, minutes=instant_now.minute)
+    def get_current_hour() -> datetime.timedelta:
+        time_now = datetime.datetime.now()
+        return datetime.timedelta(hours=time_now.hour, minutes=time_now.minute)

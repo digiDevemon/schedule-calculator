@@ -31,7 +31,7 @@ class WorkDayCalculator:
 
     def __get_worked_time(self, end_hour, start_hour):
         if not end_hour:
-            end_hour = self.clock.get_delta_now()
+            end_hour = self.clock.get_current_hour()
 
         return end_hour - start_hour
 
