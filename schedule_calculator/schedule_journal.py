@@ -18,7 +18,7 @@ class ScheduleJournal:
         self.time_entry_repository = time_entry_repository
         self.clock = clock
         self.logger = self.__get_logger()
-        self.work_day_calculator = work_day_assembler.get_workday_from_configuration(configuration)
+        self.work_day_calculator = work_day_assembler.get_workday_from_configuration(configuration["schedule"])
 
     def init(self):
         current_hour = self.clock.get_current_hour()

@@ -1,11 +1,12 @@
 from datetime import timedelta
 
 from pytest import fixture
-
+import os
 from schedule_calculator.time_entry_repository import TimeEntryRepository
 from tests.fakes.clock_fake import ClockFake
 
 __HOUR = timedelta(hours=8)
+__CURRENT_PATH = os.path.dirname(os.path.realpath(__file__))
 
 
 def it_should_return_false_when_check_data_exists_but_it_does_not_exist(time_repository):
@@ -30,7 +31,7 @@ def it_should_return_the_expected_time_hour(time_repository):
 
 @fixture
 def time_repository():
-    time_repository = TimeEntryRepository()
+    time_repository = TimeEntryRepository(temp_folder=__CURRENT_PATH)
     yield time_repository
     time_repository.remove_time_entry()
 
