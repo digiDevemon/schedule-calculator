@@ -25,7 +25,7 @@ jobs:
         poetry install
     - name: Analysing the code with pylint
       run: |
-        ./scripts/linux/run-pylint.sh
+        ./scripts/linux/run-lint.sh
     - name: Run tests with pytest
       run: |
-        ./scripts/linux/run-pytest.sh
+        ./scripts/linux/run-tests.sh
