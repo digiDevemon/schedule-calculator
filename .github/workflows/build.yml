@@ -23,9 +23,9 @@ jobs:
         poetry config virtualenvs.create false --local
         poetry lock
         poetry install
-    - name: Analysing the code with pylint
+    - name: Analysing the code with lint
       run: |
-        ./scripts/linux/run-pylint.sh
-    - name: Run tests with pytest
+        ./scripts/linux/run-lint.sh
+    - name: Run tests
       run: |
         ./scripts/linux/run-tests.sh
