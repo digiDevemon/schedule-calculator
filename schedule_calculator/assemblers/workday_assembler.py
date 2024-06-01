@@ -1,5 +1,4 @@
 from schedule_calculator.assemblers.time_assembler import TimeFormatter
-from schedule_calculator.clock import Clock
 from schedule_calculator.schedule import Schedule
 from schedule_calculator.workday_calculator import WorkDayCalculator
 
@@ -10,7 +9,7 @@ class WorkDayAssembler:
         self.time_formatter = time_formatter
 
     def get_workday_from_configuration(self, configuration: dict) -> WorkDayCalculator:
-        return WorkDayCalculator(self.__get_schedule(configuration), Clock())
+        return WorkDayCalculator(self.__get_schedule(configuration))
 
     def __get_schedule(self, configuration: dict) -> Schedule:
         time_formatter = self.time_formatter

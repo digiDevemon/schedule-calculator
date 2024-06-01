@@ -1,10 +1,14 @@
+import io
 import os
+from contextlib import redirect_stdout
+from datetime import timedelta
 
 from pytest import fixture
 
-from schedule_calculator.assemblers.time_assembler import TimeFormatter
-from schedule_calculator.schedule_journal import create_schedule_journal_with_repository
-from schedule_calculator.time_entry_repository import TimeEntryRepository
+from schedule_calculator.schedule_journal import create_schedule_journal_with_repository, \
+    create_schedule_journal_with_repository_and_clock
+from tests.fakes.clock_fake import ClockFake
+from tests.fakes.time_entry_repository_fake import TimeEntryRepositoryFake
 
 __CONFIG = {
     "schedule": {
@@ -23,13 +27,28 @@ def it_should_create_time_file_when_init_journal(temporal_repository):
     assert temporal_repository.repository_contains_time(), "It should saved current time"
 
 
+def it_should_print_the_expected_message(temporal_repository, clock):
+    temporal_repository.set_saved_entry(timedelta(hours=8))
+    clock.set_current_hour(timedelta(hours=17))
+    clock.set_today_day("Monday")
+    schedule_journal = create_schedule_journal_with_repository_and_clock(__CONFIG, temporal_repository, clock)
+
+    output = io.StringIO()
+    with redirect_stdout(output):
+        schedule_journal.check()
+    out_value = output.getvalue().replace("\n", "")
+
+    assert out_value == f"You have worked 08:15. Today you have to work 08:15.", \
+        "It should return the expected stdout message"
+
+
 @fixture
-def temporal_repository(time_formatter):
-    temporal_repository = TimeEntryRepository(time_formatter, __CURRENT_PATH)
+def temporal_repository():
+    temporal_repository = TimeEntryRepositoryFake(__CURRENT_PATH)
     yield temporal_repository
     temporal_repository.remove_time_entry()
 
 
 @fixture
-def time_formatter():
-    yield TimeFormatter()
+def clock():
+    return ClockFake()
