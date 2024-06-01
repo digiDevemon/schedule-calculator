@@ -6,12 +6,12 @@ from schedule_calculator.schedule import Schedule
 
 class WorkDayCalculator:
 
-    def __init__(self, schedule: Schedule, clock: Clock = Clock()):
+    def __init__(self, schedule: Schedule, clock: Clock):
         self.schedule = schedule
         self.clock = clock
 
     def calculate_worked_time(self, start_hour: datetime.timedelta,
-                              end_hour: datetime.timedelta = None) -> (
+                              end_hour=None) -> (
             tuple)[datetime.timedelta, datetime.timedelta]:
 
         if self.__is_today_short_schedule():
@@ -20,7 +20,7 @@ class WorkDayCalculator:
         return self.__get_worked_time(end_hour, start_hour) - self.schedule.launch_time, self.schedule.standard_time
 
     def calculate_extra_time_today(self, start_hour: datetime.timedelta,
-                                   end_hour: datetime.timedelta = None) \
+                                   end_hour=None) \
             -> tuple[datetime.timedelta, datetime.timedelta]:
 
         if self.__is_today_short_schedule():
@@ -37,3 +37,8 @@ class WorkDayCalculator:
 
     def __is_today_short_schedule(self) -> bool:
         return self.clock.get_today_day() == self.schedule.short_day
+
+
+def create_work_day_calculator(schedule: Schedule):
+    clock = Clock()
+    return WorkDayCalculator(schedule, clock)

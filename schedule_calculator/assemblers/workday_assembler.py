@@ -1,15 +1,16 @@
 from schedule_calculator.assemblers.time_assembler import TimeFormatter
+from schedule_calculator.clock import Clock
 from schedule_calculator.schedule import Schedule
 from schedule_calculator.workday_calculator import WorkDayCalculator
 
 
 class WorkDayAssembler:
 
-    def __init__(self, time_formatter: TimeFormatter = TimeFormatter()):
+    def __init__(self, time_formatter: TimeFormatter):
         self.time_formatter = time_formatter
 
     def get_workday_from_configuration(self, configuration: dict) -> WorkDayCalculator:
-        return WorkDayCalculator(self.__get_schedule(configuration))
+        return WorkDayCalculator(self.__get_schedule(configuration), Clock())
 
     def __get_schedule(self, configuration: dict) -> Schedule:
         time_formatter = self.time_formatter
@@ -19,3 +20,8 @@ class WorkDayAssembler:
         delta_launch = time_formatter.get_delta_from_str(configuration["schedule"]["launch"])
         short_day = configuration["schedule"]["short_day"]
         return Schedule(delta_schedule_standard, delta_schedule_short, delta_launch, short_day)
+
+
+def create_workday_assembler():
+    time_formatter = TimeFormatter()
+    return WorkDayAssembler(time_formatter)

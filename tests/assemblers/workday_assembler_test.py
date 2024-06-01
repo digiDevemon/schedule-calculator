@@ -14,11 +14,16 @@ __CONFIG = {
 
 def it_should_not_return_none():
     time_formatter = TimeFormatter()
+
     workday_assembler = WorkDayAssembler(time_formatter)
-    assert workday_assembler.get_workday_from_configuration(__CONFIG) is not None
+
+    assert workday_assembler.get_workday_from_configuration(__CONFIG) is not None, "It should not return none"
 
 
 def it_should_return_the_expected_type_object():
     time_formatter = TimeFormatter()
+
     workday_assembler = WorkDayAssembler(time_formatter)
-    assert type(workday_assembler.get_workday_from_configuration(__CONFIG)) is WorkDayCalculator
+
+    assert type(workday_assembler.get_workday_from_configuration(
+        __CONFIG)) is WorkDayCalculator, f"It should return an object with type {type(WorkDayCalculator)}"

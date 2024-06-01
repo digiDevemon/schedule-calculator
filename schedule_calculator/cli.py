@@ -5,7 +5,7 @@ from importlib.metadata import version
 
 import yaml
 
-from schedule_calculator.schedule_journal import ScheduleJournal
+from schedule_calculator.schedule_journal import create_schedule_journal
 
 
 def build_cli() -> argparse.ArgumentParser:
@@ -35,7 +35,8 @@ def __journal_init_parser(subparsers):
 
 def __init_journal(_args: argparse.Namespace):
     configuration = __load_configuration(_args.config)
-    ScheduleJournal(configuration).init()
+    schedule_journal = create_schedule_journal(configuration)
+    schedule_journal.init()
 
 
 def __journal_check_parser(subparsers):
@@ -47,7 +48,8 @@ def __journal_check_parser(subparsers):
 
 def __check_journal(_args: argparse.Namespace):
     configuration = __load_configuration(_args.config)
-    ScheduleJournal(configuration).check()
+    schedule_journal = create_schedule_journal(configuration)
+    schedule_journal.check()
 
 
 def __get_default_config_file_path():

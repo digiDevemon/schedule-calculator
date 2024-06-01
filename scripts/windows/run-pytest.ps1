@@ -1,5 +1,5 @@
 
 
 pushd $PSScriptRoot\..\..
-    pytest -v --cache-clear --durations=0
+    python -m pytest -v --cache-clear --durations=0
 popd

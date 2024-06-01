@@ -1,7 +1,7 @@
 from pytest import fixture
 
 from schedule_calculator.assemblers.time_assembler import TimeFormatter
-from schedule_calculator.schedule_journal import ScheduleJournal
+from schedule_calculator.schedule_journal import create_schedule_journal_with_repository
 from schedule_calculator.time_entry_repository import TimeEntryRepository
 
 __CONFIG = {
@@ -15,9 +15,9 @@ __CONFIG = {
 
 
 def it_should_create_time_file_when_init_journal(temporal_repository):
-    schedule_journal = ScheduleJournal(__CONFIG)
+    schedule_journal = create_schedule_journal_with_repository(__CONFIG, temporal_repository)
     schedule_journal.init()
-    assert temporal_repository.repository_contains_time()
+    assert temporal_repository.repository_contains_time(), "It should saved current time"
 
 
 @fixture
