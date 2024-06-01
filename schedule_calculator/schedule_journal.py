@@ -1,3 +1,5 @@
+import datetime
+
 from schedule_calculator.assemblers.time_assembler import TimeFormatter
 from schedule_calculator.assemblers.workday_assembler import WorkDayAssembler
 from schedule_calculator.clock import Clock
@@ -16,6 +18,7 @@ class ScheduleJournal:
         self.clock = clock
         self.work_day_calculator = work_day_calculator
         self.time_formatter = time_formatter
+        self.zero_time_vector = datetime.timedelta(hours=0)
 
     def init(self):
         current_hour = self.clock.get_current_hour()
@@ -26,6 +29,9 @@ class ScheduleJournal:
         worked_hours, expected_hours = self.work_day_calculator.calculate_worked_time(self.clock.get_today_day(),
                                                                                       started_time,
                                                                                       self.clock.get_current_hour())
+        if worked_hours < self.zero_time_vector:
+            worked_hours = datetime.timedelta(hours=0)
+
         print(
             f"You have worked {self.time_formatter.get_str_from_delta(worked_hours)}. "
             f"Today you have to work {self.time_formatter.get_str_from_delta(expected_hours)}.")
