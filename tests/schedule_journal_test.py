@@ -1,3 +1,5 @@
+import os
+
 from pytest import fixture
 
 from schedule_calculator.assemblers.time_assembler import TimeFormatter
@@ -12,6 +14,7 @@ __CONFIG = {
         "short_day": "Friday"
     }
 }
+__CURRENT_PATH = os.path.dirname(os.path.realpath(__file__))
 
 
 def it_should_create_time_file_when_init_journal(temporal_repository):
@@ -22,7 +25,7 @@ def it_should_create_time_file_when_init_journal(temporal_repository):
 
 @fixture
 def temporal_repository(time_formatter):
-    temporal_repository = TimeEntryRepository(time_formatter)
+    temporal_repository = TimeEntryRepository(time_formatter, __CURRENT_PATH)
     yield temporal_repository
     temporal_repository.remove_time_entry()
 

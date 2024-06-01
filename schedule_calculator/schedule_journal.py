@@ -5,7 +5,7 @@ from logging import Logger
 from schedule_calculator.assemblers.time_assembler import TimeFormatter
 from schedule_calculator.assemblers.workday_assembler import WorkDayAssembler
 from schedule_calculator.clock import Clock
-from schedule_calculator.time_entry_repository import TimeEntryRepository
+from schedule_calculator.time_entry_repository import TimeEntryRepository, create_time_entry_repository
 from schedule_calculator.workday_calculator import WorkDayCalculator
 
 
@@ -39,14 +39,14 @@ class ScheduleJournal:
 
 def create_schedule_journal(configuration):
     time_formatter = TimeFormatter()
-    work_day_calculator = WorkDayAssembler(time_formatter).get_workday_from_configuration(configuration)
-    time_entry_repository = TimeEntryRepository(time_formatter)
+    work_day_calculator = WorkDayAssembler(time_formatter).get_workday_from_configuration(configuration["schedule"])
+    time_entry_repository = create_time_entry_repository()
     clock = Clock()
     return ScheduleJournal(work_day_calculator, time_entry_repository, clock)
 
 
 def create_schedule_journal_with_repository(configuration, time_entry_repository):
     time_formatter = TimeFormatter()
-    work_day_calculator = WorkDayAssembler(time_formatter).get_workday_from_configuration(configuration)
+    work_day_calculator = WorkDayAssembler(time_formatter).get_workday_from_configuration(configuration["schedule"])
     clock = Clock()
     return ScheduleJournal(work_day_calculator, time_entry_repository, clock)
