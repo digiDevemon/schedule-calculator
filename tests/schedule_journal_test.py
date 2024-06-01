@@ -8,9 +8,9 @@ from schedule_calculator.time_entry_repository import TimeEntryRepository
 
 __CONFIG = {
     "schedule": {
-        "standard": "8:15",
-        "short": "7:00",
-        "launch": "0:45",
+        "standard": "08:15",
+        "short": "07:00",
+        "launch": "00:45",
         "short_day": "Friday"
     }
 }
