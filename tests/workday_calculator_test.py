@@ -93,3 +93,17 @@ def it_should_return_the_expected_result_when_calculates_extra_time_on_friday():
             == __EXPECTED_ZERO_DELTA_HOURS), \
         (f"For a schedule started at {__START_HOUR} and ended at {__END_HOUR} it "
          f"should return the expected delta {__EXPECTED_ZERO_DELTA_HOURS} on a short day for extra time")
+
+
+def it_should_return_the_expected_result_when_calculates_extra_time_for_weekend():
+    assert (WorkDayCalculator(__SCHEDULE).calculate_extra_time_today(__WEEKEND_DAY, __START_HOUR, __END_HOUR)[0]
+            == __EFFECTIVE_HOURS), \
+        (f"For a schedule started at {__START_HOUR} and ended at {__END_HOUR} it "
+         f"should return the expected extra time delta {__EFFECTIVE_HOURS} on a weekend")
+
+
+def it_should_return_the_expected_expected_hours_when_calculates_extra_time_for_weekend():
+    assert (WorkDayCalculator(__SCHEDULE).calculate_extra_time_today(__WEEKEND_DAY, __START_HOUR, __END_HOUR)[1]
+            == timedelta(hours=0)), \
+        (f"For a schedule started at {__START_HOUR} and ended at {__END_HOUR} it "
+         f"should return the expected time delta {timedelta(hours=0)} on a weekend")

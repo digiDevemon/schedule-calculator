@@ -1,7 +1,7 @@
 import datetime
+from datetime import timedelta
 
 from schedule_calculator.time.schedule import Schedule
-from datetime import timedelta
 
 
 class WorkDayCalculator:
@@ -14,7 +14,7 @@ class WorkDayCalculator:
             tuple)[datetime.timedelta, datetime.timedelta]:
 
         if self.__is_weekend(today_day):
-            return self.__get_worked_time(end_hour, start_hour),  self.zero_time
+            return self.__get_worked_time(end_hour, start_hour), self.zero_time
 
         if self.__is_short_schedule(today_day):
             return self.__get_worked_time(end_hour, start_hour), self.schedule.short_time
@@ -23,6 +23,9 @@ class WorkDayCalculator:
 
     def calculate_extra_time_today(self, today_day: str, start_hour: datetime.timedelta, end_hour=datetime.timedelta) \
             -> tuple[datetime.timedelta, datetime.timedelta]:
+
+        if self.__is_weekend(today_day):
+            return self.__get_worked_time(end_hour, start_hour), self.zero_time
 
         if self.__is_short_schedule(today_day):
             return self.__get_worked_time(end_hour, start_hour) - self.schedule.short_time, self.schedule.short_time
