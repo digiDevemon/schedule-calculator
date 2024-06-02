@@ -1,6 +1,6 @@
 import datetime
 
-from schedule_calculator.clock import Clock
+from schedule_calculator.time.clock import Clock
 
 
 def it_should_not_return_none_when_retrieves_today_day():

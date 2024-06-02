@@ -1,6 +1,6 @@
 from datetime import timedelta
 
-from schedule_calculator.assemblers.time_assembler import TimeFormatter
+from schedule_calculator.time.assemblers.time_assembler import TimeFormatter
 
 __TIME_STRING = "08:15"
 __TIME_DELTA = timedelta(hours=8, minutes=15)

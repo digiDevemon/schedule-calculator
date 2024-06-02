@@ -1,5 +1,5 @@
-from schedule_calculator.assemblers.time_assembler import TimeFormatter
-from schedule_calculator.schedule import Schedule
+from schedule_calculator.time.assemblers.time_assembler import TimeFormatter
+from schedule_calculator.time.schedule import Schedule
 
 
 class ScheduleAssembler:

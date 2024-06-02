@@ -1,6 +1,6 @@
 import datetime
 
-from schedule_calculator.schedule import Schedule
+from schedule_calculator.time.schedule import Schedule
 
 
 class WorkDayCalculator:

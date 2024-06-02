@@ -1,6 +1,6 @@
 import datetime
 
-from schedule_calculator.assemblers.time_assembler import TimeFormatter
+from schedule_calculator.time.assemblers.time_assembler import TimeFormatter
 from schedule_calculator.time_entry_repository import TimeEntryRepository
 
 

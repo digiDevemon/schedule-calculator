@@ -1,8 +1,8 @@
 import datetime
 
-from schedule_calculator.assemblers.time_assembler import TimeFormatter
-from schedule_calculator.assemblers.schedule_assembler import ScheduleAssembler
-from schedule_calculator.clock import Clock
+from schedule_calculator.time.assemblers.time_assembler import TimeFormatter
+from schedule_calculator.time.assemblers.schedule_assembler import ScheduleAssembler
+from schedule_calculator.time.clock import Clock
 from schedule_calculator.time_entry_repository import TimeEntryRepository, create_time_entry_repository
 from schedule_calculator.workday_calculator import WorkDayCalculator
 

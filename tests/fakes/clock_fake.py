@@ -1,6 +1,6 @@
 import datetime
 
-from schedule_calculator.clock import Clock
+from schedule_calculator.time.clock import Clock
 
 
 class ClockFake(Clock):

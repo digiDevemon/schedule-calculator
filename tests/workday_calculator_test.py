@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 
-from schedule_calculator.schedule import Schedule
+from schedule_calculator.time.schedule import Schedule
 from schedule_calculator.workday_calculator import WorkDayCalculator
 
 __STANDARD_DELTA = timedelta(hours=8, minutes=15)
