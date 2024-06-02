@@ -3,4 +3,4 @@ schedule:
   short : "07:00"
   launch : "00:45"
   short_days: ["Friday"]
-  weekend_days: ["Saturday", "Monday"]
+  weekend_days: ["Saturday", "Sunday"]
