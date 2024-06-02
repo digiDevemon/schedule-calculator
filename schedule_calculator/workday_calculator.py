@@ -30,7 +30,7 @@ class WorkDayCalculator:
         return end_hour - start_hour
 
     def __is_short_schedule(self, today_day: str) -> bool:
-        return today_day == self.schedule.short_day
+        return today_day in self.schedule.short_days
 
 
 def create_work_day_calculator(schedule: Schedule):

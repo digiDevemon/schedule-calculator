@@ -8,7 +8,8 @@ __SHORT_DELTA = timedelta(hours=7)
 __LAUNCH_DELTA = timedelta(hours=0, minutes=45)
 __SHORT_DAY = 'Friday'
 __STANDARD_DAY = 'Monday'
-__SCHEDULE = Schedule(__STANDARD_DELTA, __SHORT_DELTA, __LAUNCH_DELTA, __SHORT_DAY)
+__WEEKEND_DAYS = ['Saturday', 'Sunday']
+__SCHEDULE = Schedule(__STANDARD_DELTA, __SHORT_DELTA, __LAUNCH_DELTA, [__SHORT_DAY], __WEEKEND_DAYS)
 
 __START_HOUR = timedelta(hours=8)
 __END_HOUR = timedelta(hours=17)
@@ -51,6 +52,13 @@ def it_should_return_the_expected_standard_delta_hours_when_calculates_worked_ti
 
 
 def it_should_return_the_expected_short_delta_hours_when_calculates_worked_time():
+    assert (WorkDayCalculator(__SCHEDULE).calculate_worked_time(__SHORT_DAY, __START_HOUR, __END_HOUR)[1]
+            == __EXPECTED_SHORT_DELTA_HOURS), \
+        (f"For a schedule started at {__START_HOUR} and ended at {__END_HOUR} it "
+         f"should return the expected delta {__EXPECTED_SHORT_DELTA_HOURS} on a short day")
+
+
+def it_should_return_the_expected_delta_hours_when_calculates_worked_time_for_a_weekend():
     assert (WorkDayCalculator(__SCHEDULE).calculate_worked_time(__SHORT_DAY, __START_HOUR, __END_HOUR)[1]
             == __EXPECTED_SHORT_DELTA_HOURS), \
         (f"For a schedule started at {__START_HOUR} and ended at {__END_HOUR} it "
