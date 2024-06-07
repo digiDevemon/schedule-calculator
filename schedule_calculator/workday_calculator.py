@@ -10,7 +10,7 @@ class WorkDayCalculator:
         self.schedule = schedule
         self.zero_time = timedelta(hours=0)
 
-    def calculate_worked_time(self, today_day: str, start_hour: datetime.timedelta, end_hour=datetime.timedelta) -> (
+    def calculate_worked_time(self, today_day: str, start_hour: datetime.datetime, end_hour: datetime.datetime) -> (
             tuple)[datetime.timedelta, datetime.timedelta]:
 
         if self.__is_weekend(today_day):
@@ -21,7 +21,7 @@ class WorkDayCalculator:
 
         return self.__get_worked_time(end_hour, start_hour) - self.schedule.launch_time, self.schedule.standard_time
 
-    def calculate_extra_time_today(self, today_day: str, start_hour: datetime.timedelta, end_hour=datetime.timedelta) \
+    def calculate_extra_time_today(self, today_day: str, start_hour: datetime.datetime, end_hour: datetime.datetime) \
             -> tuple[datetime.timedelta, datetime.timedelta]:
 
         if self.__is_weekend(today_day):
@@ -34,7 +34,7 @@ class WorkDayCalculator:
                 self.schedule.standard_time, self.schedule.standard_time)
 
     @staticmethod
-    def __get_worked_time(end_hour, start_hour):
+    def __get_worked_time(end_hour: datetime.datetime, start_hour: datetime.datetime):
         return end_hour - start_hour
 
     def __is_short_schedule(self, today_day: str) -> bool:

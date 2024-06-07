@@ -2,6 +2,8 @@ import datetime
 
 from schedule_calculator.time.clock import Clock
 
+__DATE_FORMATTER = "%HH:%MM"
+
 
 def it_should_not_return_none_when_retrieves_today_day():
     clock = Clock()
@@ -16,6 +18,5 @@ def it_should_return_the_expected_today_day():
 
 def it_should_return_the_expected_actual_time_delta():
     clock = Clock()
-    today = datetime.datetime.now()
-    expected_delta = datetime.timedelta(hours=today.hour, minutes=today.minute)
-    assert clock.get_current_hour() == expected_delta, f"It should return delta time {expected_delta}"
+    now = datetime.datetime.now().strftime(__DATE_FORMATTER)
+    assert clock.get_current_time().strftime(__DATE_FORMATTER) == now, f"It should return datetime"

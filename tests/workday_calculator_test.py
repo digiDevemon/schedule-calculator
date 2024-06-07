@@ -12,10 +12,10 @@ __WEEKEND_DAY = 'Saturday'
 __WEEKEND_DAYS = [__WEEKEND_DAY, 'Sunday']
 __SCHEDULE = Schedule(__STANDARD_DELTA, __SHORT_DELTA, __LAUNCH_DELTA, [__SHORT_DAY], __WEEKEND_DAYS)
 
-__START_HOUR = timedelta(hours=8)
-__END_HOUR = timedelta(hours=17)
+__START_HOUR = datetime(year=1997, month=7, day=7, hour=8, minute=0, second=0)
+__END_HOUR = datetime(year=1997, month=7, day=7, hour=17, minute=0, second=0)
 __EFFECTIVE_HOURS = timedelta(hours=9)
-__END_HOUR_FRIDAY = timedelta(hours=15)
+__END_HOUR_FRIDAY = datetime(year=1997, month=7, day=7, hour=15, minute=0, second=0)
 
 __FRIDAY_DAY = datetime(2024, 5, 3)
 

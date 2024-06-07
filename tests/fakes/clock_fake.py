@@ -12,7 +12,7 @@ class ClockFake(Clock):
     def set_today_day(self, today_day: str):
         self.today_day = today_day
 
-    def set_current_hour(self, current_hour: datetime.timedelta):
+    def set_current_hour(self, current_hour: datetime.datetime):
         self.current_hour = current_hour
 
     def get_today_day(self):
@@ -21,8 +21,8 @@ class ClockFake(Clock):
 
         return self.today_day
 
-    def get_current_hour(self) -> datetime.timedelta:
+    def get_current_time(self) -> datetime.datetime:
         if not self.current_hour:
-            return super().get_current_hour()
+            return super().get_current_time()
 
         return self.current_hour

@@ -21,14 +21,14 @@ class ScheduleJournal:
         self.zero_time_vector = datetime.timedelta(hours=0)
 
     def init(self):
-        current_hour = self.clock.get_current_hour()
+        current_hour = self.clock.get_current_time()
         self.time_entry_repository.save_time_entry(current_hour)
 
     def check(self):
         started_time = self.time_entry_repository.get_time_entry()
         worked_hours, expected_hours = self.work_day_calculator.calculate_worked_time(self.clock.get_today_day(),
                                                                                       started_time,
-                                                                                      self.clock.get_current_hour())
+                                                                                      self.clock.get_current_time())
         if worked_hours < self.zero_time_vector:
             worked_hours = datetime.timedelta(hours=0)
 

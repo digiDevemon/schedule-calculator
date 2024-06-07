@@ -16,13 +16,13 @@ class TimeEntryRepository:
     def repository_contains_time(self) -> bool:
         return os.path.isfile(self.__get_temporal_file_path())
 
-    def get_time_entry(self) -> datetime.timedelta:
+    def get_time_entry(self) -> datetime.datetime:
         saved_time = Path(self.__get_temporal_file_path()).read_text(encoding="utf-8")
-        return self.time_formatter.get_delta_from_str(saved_time)
+        return self.time_formatter.get_time_from_str(saved_time)
 
-    def save_time_entry(self, time: datetime.timedelta):
+    def save_time_entry(self, time: datetime.datetime):
         with open(self.__get_temporal_file_path(), "w", encoding="utf-8") as file:
-            file.write(self.time_formatter.get_str_from_delta(time))
+            file.write(self.time_formatter.get_str_from_time(time))
 
     def remove_time_entry(self):
         if os.path.isfile(self.__get_temporal_file_path()):
