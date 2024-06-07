@@ -25,7 +25,7 @@ def it_should_return_false_when_check_data_exists_and_it_exists_but_we_remove_it
     assert time_repository.repository_contains_time() == False, "It should not contains data time saved"
 
 
-def it_should_return_the_expected_time_hour(time_repository):
+def it_should_return_the_expected_time(time_repository):
     time_repository.save_time_entry(__HOUR)
     assert time_repository.get_time_entry() == __HOUR, f"It should return {__HOUR}"
 

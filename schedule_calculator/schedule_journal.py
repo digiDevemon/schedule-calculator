@@ -4,7 +4,7 @@ from schedule_calculator.time.assemblers.time_assembler import TimeFormatter
 from schedule_calculator.time.assemblers.schedule_assembler import ScheduleAssembler
 from schedule_calculator.time.clock import Clock
 from schedule_calculator.time_entry_repository import TimeEntryRepository, create_time_entry_repository
-from schedule_calculator.workday_calculator import WorkDayCalculator
+from schedule_calculator.calculus.workday_calculator import WorkDayCalculator
 
 
 class ScheduleJournal:
