@@ -2,7 +2,7 @@ from datetime import timedelta, datetime
 
 import pytest
 
-from schedule_calculator.calculus.operations.short_day import ShortDayOperation
+from schedule_calculator.calculus.operations.usual_day import UsualDayOperation
 from schedule_calculator.time.schedule import Schedule
 from schedule_calculator.time.workday import Workday
 
@@ -23,22 +23,22 @@ __SHORT_WORKDAY = Workday(__START_HOUR, __END_HOUR)
 
 
 @pytest.mark.parametrize("day,expected_result", [
-    (__SHORT_WORKDAY, True),
-    (__WORKDAY, False)])
+    (__SHORT_WORKDAY, False),
+    (__WORKDAY, True)])
 def it_should_return_the_expected_response_fulfilling_the_schedule(day, expected_result):
-    operation = ShortDayOperation(__SCHEDULE)
+    operation = UsualDayOperation(__SCHEDULE)
     assert operation.fulfill(day) == expected_result, f"It should return {expected_result} for {day}"
 
 
 def it_should_return_the_expected_calculation():
-    operation = ShortDayOperation(__SCHEDULE)
+    operation = UsualDayOperation(__SCHEDULE)
 
-    assert operation.calculate(__SHORT_WORKDAY)[0] == __SHORT_DELTA, \
-        f"It should return {__SHORT_DELTA} as calculation result"
+    assert operation.calculate(__WORKDAY)[0] == __STANDARD_DELTA, \
+        f"It should return {__STANDARD_DELTA} as calculation result"
 
 
 def it_should_return_the_expected_delta_calculation():
-    operation = ShortDayOperation(__SCHEDULE)
+    operation = UsualDayOperation(__SCHEDULE)
 
-    assert operation.calculate(__SHORT_WORKDAY)[1] == __SHORT_DELTA, \
-        f"It should return {__SHORT_DELTA} as expected calculation result"
+    assert operation.calculate(__WORKDAY)[1] == __STANDARD_DELTA, \
+        f"It should return {__STANDARD_DELTA} as expected calculation result"
