@@ -15,7 +15,6 @@ class TimeFormatter:
         return f'{hours:02d}:{minutes:02d}'
 
     def get_time_from_str(self, time: str) -> datetime.datetime:
-        print(time)
         return datetime.datetime.strptime(time, self.HOUR_FORMATTER)
 
     def get_str_from_time(self, instant: datetime.datetime) -> str:

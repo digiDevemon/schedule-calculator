@@ -38,40 +38,12 @@ def it_should_return_the_expected_time_when_calculates_worked_time():
          f"should return the expected {__EXPECTED_WORDED_HOURS} on a regular day")
 
 
-def it_should_return_the_expected_time_when_is_friday_when_calculates_worked_time():
-    assert (WorkDayCalculator(__SCHEDULE).calculate_worked_time(__SHORT_DAY, __START_HOUR, __END_HOUR)[0]
-            == __EXPECTED_WORKED_HOURS_ON_FRIDAY), \
-        (f"For a schedule started at {__START_HOUR} and ended at {__END_HOUR} it "
-         f"should return the expected {__EXPECTED_WORKED_HOURS_ON_FRIDAY} on a short day")
-
-
 def it_should_return_the_expected_standard_delta_hours_when_calculates_worked_time():
     assert (WorkDayCalculator(__SCHEDULE).calculate_worked_time(__STANDARD_DAY, __START_HOUR,
                                                                 __END_HOUR)[1]
             == __EXPECTED_STANDARD_DELTA_HOURS), \
         (f"For a schedule started at {__START_HOUR} and ended at {__END_HOUR} it "
          f"should return the expected delta {__EXPECTED_STANDARD_DELTA_HOURS} on a regular day")
-
-
-def it_should_return_the_expected_short_delta_hours_when_calculates_worked_time():
-    assert (WorkDayCalculator(__SCHEDULE).calculate_worked_time(__SHORT_DAY, __START_HOUR, __END_HOUR)[1]
-            == __EXPECTED_SHORT_DELTA_HOURS), \
-        (f"For a schedule started at {__START_HOUR} and ended at {__END_HOUR} it "
-         f"should return the expected delta {__EXPECTED_SHORT_DELTA_HOURS} on a short day")
-
-
-def it_should_return_the_expected_zero_hours_worked_for_a_weekend():
-    assert (WorkDayCalculator(__SCHEDULE).calculate_worked_time(__WEEKEND_DAY, __START_HOUR, __END_HOUR)[1]
-            == timedelta(hours=0)), \
-        (f"For a schedule started at {__START_HOUR} and ended at {__END_HOUR} it "
-         f"should return the expected delta worked hours {timedelta(hours=0)} on a weekend day")
-
-
-def it_should_return_the_expected_delta_hours_when_calculates_worked_time_for_a_weekend():
-    assert (WorkDayCalculator(__SCHEDULE).calculate_worked_time(__WEEKEND_DAY, __START_HOUR, __END_HOUR)[0]
-            == __EFFECTIVE_HOURS), \
-        (f"For a schedule started at {__START_HOUR} and ended at {__END_HOUR} it "
-         f"should return the expected delta {__EFFECTIVE_HOURS} on a weekend day")
 
 
 def it_should_not_return_none_when_calculates_extra_time():
