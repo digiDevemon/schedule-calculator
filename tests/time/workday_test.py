@@ -7,11 +7,9 @@ __START_DAY = datetime.datetime(year=2024, month=6, day=7, hour=7)
 __END_DAY = datetime.datetime(year=2024, month=6, day=7, hour=15)
 
 
-@pytest.mark.parametrize("day,expected_result", [
-    ("Friday", True), ("Monday", False)])
-def it_should_return_the_expected_value_for_same_day(day, expected_result):
-    assert Workday(__START_DAY, __END_DAY).is_same_day(day) == expected_result, \
-        f"It should return for a given day {day} the expected result {expected_result}"
+def it_should_return_the_expected_as_day():
+    assert Workday(__START_DAY, __END_DAY).get_day() == "Friday", \
+        f"It should return Friday"
 
 
 @pytest.mark.parametrize("init_date,end_date,expected_result", [
