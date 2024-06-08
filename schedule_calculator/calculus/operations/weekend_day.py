@@ -6,13 +6,13 @@ from schedule_calculator.time.schedule import Schedule
 from schedule_calculator.time.workday import Workday
 
 
-class ShortDayOperation(Operation):
+class WeekendDayOperation(Operation):
 
     def calculate(self, work_day: Workday) -> Tuple[datetime.timedelta, datetime.timedelta]:
-        return work_day.end - work_day.start, self.schedule.short_time
+        return work_day.end - work_day.start, datetime.timedelta(hours=0)
 
     def fulfill(self, work_day: Workday) -> bool:
-        return work_day.get_day() in self.schedule.short_days
+        return work_day.get_day() in self.schedule.weekend_days
 
     def __init__(self, schedule: Schedule):
         self.schedule = schedule
