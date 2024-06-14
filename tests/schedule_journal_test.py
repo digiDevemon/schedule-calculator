@@ -29,8 +29,8 @@ def it_should_create_time_file_when_init_journal(temporal_repository):
 
 
 def it_should_print_the_expected_message(temporal_repository, clock):
-    temporal_repository.set_saved_entry(datetime(year=1991, month=7, day=7, hour=8, minute=0, second=0))
-    clock.set_current_hour(datetime(year=1991, month=7, day=7, hour=17, minute=0, second=0))
+    temporal_repository.set_saved_entry(datetime(year=1991, month=7, day=8, hour=8, minute=0, second=0))
+    clock.set_current_time(datetime(year=1991, month=7, day=8, hour=17, minute=0, second=0))
     clock.set_today_day("Monday")
     schedule_journal = create_schedule_journal_with_repository_and_clock(__CONFIG, temporal_repository, clock)
 
@@ -44,8 +44,8 @@ def it_should_print_the_expected_message(temporal_repository, clock):
 
 
 def it_should_print_the_expected_message_when_the_time_vector_is_not_positive(temporal_repository, clock):
-    temporal_repository.set_saved_entry(datetime(year=1991, month=7, day=7, hour=8, minute=0, second=0))
-    clock.set_current_hour(datetime(year=1991, month=7, day=7, hour=8, minute=15, second=0))
+    temporal_repository.set_saved_entry(datetime(year=1991, month=7, day=8, hour=8, minute=0, second=0))
+    clock.set_current_time(datetime(year=1991, month=7, day=8, hour=8, minute=15, second=0))
     clock.set_today_day("Monday")
     schedule_journal = create_schedule_journal_with_repository_and_clock(__CONFIG, temporal_repository, clock)
 

@@ -40,5 +40,5 @@ def time_repository():
 @fixture
 def clock():
     clock = ClockFake()
-    clock.set_current_hour(__HOUR)
+    clock.set_current_time(__HOUR)
     yield clock

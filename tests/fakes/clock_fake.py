@@ -12,7 +12,7 @@ class ClockFake(Clock):
     def set_today_day(self, today_day: str):
         self.today_day = today_day
 
-    def set_current_hour(self, current_hour: datetime.datetime):
+    def set_current_time(self, current_hour: datetime.datetime):
         self.current_hour = current_hour
 
     def get_today_day(self):
