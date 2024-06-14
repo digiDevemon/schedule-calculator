@@ -1,7 +1,7 @@
 import datetime
 
-from schedule_calculator.time.assemblers.time_assembler import TimeFormatter
-from schedule_calculator.time_entry_repository import TimeEntryRepository
+from schedule_calculator.time.assemblers.time_formatter import TimeFormatter
+from schedule_calculator.time.repository.time_entry_repository import TimeEntryRepository
 
 
 class TimeEntryRepositoryFake(TimeEntryRepository):

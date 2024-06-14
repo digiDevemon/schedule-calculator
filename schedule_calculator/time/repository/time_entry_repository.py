@@ -3,7 +3,7 @@ import os
 import tempfile
 from pathlib import Path
 
-from schedule_calculator.time.assemblers.time_assembler import TimeFormatter
+from schedule_calculator.time.assemblers.time_formatter import TimeFormatter
 
 
 class TimeEntryRepository:

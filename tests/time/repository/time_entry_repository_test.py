@@ -3,7 +3,7 @@ from datetime import datetime
 
 from pytest import fixture
 
-from schedule_calculator.time_entry_repository import create_time_entry_repository_with_folder
+from schedule_calculator.time.repository.time_entry_repository import create_time_entry_repository_with_folder
 from tests.fakes.clock_fake import ClockFake
 
 __HOUR = datetime(year=1997, month=7, day=7, hour=8, minute=7)

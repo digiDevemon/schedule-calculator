@@ -1,6 +1,6 @@
 import datetime
 
-from schedule_calculator.time.assemblers.time_assembler import TimeFormatter
+from schedule_calculator.time.assemblers.time_formatter import TimeFormatter
 
 __TIME_STRING = "1997-07-07T07:07:00Z"
 __TIME_DELTA = datetime.datetime(year=1997, month=7, day=7, hour=7, minute=7, second=0)
