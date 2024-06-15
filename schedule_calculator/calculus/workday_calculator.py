@@ -21,31 +21,17 @@ class WorkDayCalculator:
 
         for operation in self.operations:
             if operation.fulfill(workday):
-                return operation.calculate(workday)
+                return operation.calculate_worked_time(workday)
 
         raise UnknownOperationDay()
 
-    def calculate_extra_time_today(self, today_day: str, start_hour: datetime.datetime, end_hour: datetime.datetime) \
-            -> tuple[datetime.timedelta, datetime.timedelta]:
+    def calculate_extra_time_today(self, workday: Workday) -> datetime.timedelta:
 
-        if self.__is_weekend(today_day):
-            return self.__get_worked_time(end_hour, start_hour), self.zero_time
+        for operation in self.operations:
+            if operation.fulfill(workday):
+                return operation.calculate_extra_time(workday)
 
-        if self.__is_short_schedule(today_day):
-            return self.__get_worked_time(end_hour, start_hour) - self.schedule.short_time, self.schedule.short_time
-
-        return (self.__get_worked_time(end_hour, start_hour) - self.schedule.launch_time -
-                self.schedule.standard_time, self.schedule.standard_time)
-
-    @staticmethod
-    def __get_worked_time(end_hour: datetime.datetime, start_hour: datetime.datetime):
-        return end_hour - start_hour
-
-    def __is_short_schedule(self, today_day: str) -> bool:
-        return today_day in self.schedule.short_days
-
-    def __is_weekend(self, today_day: str) -> bool:
-        return today_day in self.schedule.weekend_days
+        raise UnknownOperationDay()
 
 
 def create_work_day_calculator(schedule: Schedule):

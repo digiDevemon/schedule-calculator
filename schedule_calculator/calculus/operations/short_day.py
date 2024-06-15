@@ -8,8 +8,11 @@ from schedule_calculator.time.workday import Workday
 
 class ShortDayOperation(Operation):
 
-    def calculate(self, work_day: Workday) -> Tuple[datetime.timedelta, datetime.timedelta]:
+    def calculate_worked_time(self, work_day: Workday) -> Tuple[datetime.timedelta, datetime.timedelta]:
         return work_day.end - work_day.start, self.schedule.short_time
+
+    def calculate_extra_time(self, work_day: Workday) -> datetime.timedelta:
+        return work_day.end - work_day.start - self.schedule.short_time
 
     def fulfill(self, work_day: Workday) -> bool:
         return work_day.get_day() in self.schedule.short_days

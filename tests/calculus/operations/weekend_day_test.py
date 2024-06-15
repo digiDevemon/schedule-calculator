@@ -34,7 +34,7 @@ def it_should_return_the_expected_calculation():
     expected_result = timedelta(hours=7)
     operation = WeekendDayOperation(__SCHEDULE)
 
-    assert operation.calculate(__WEEKEND_WORKDAY)[0] == expected_result, \
+    assert operation.calculate_worked_time(__WEEKEND_WORKDAY)[0] == expected_result, \
         f"It should return {expected_result} as calculation result"
 
 
@@ -42,5 +42,13 @@ def it_should_return_the_expected_delta_calculation():
     zero = timedelta(hours=0)
     operation = WeekendDayOperation(__SCHEDULE)
 
-    assert operation.calculate(__WEEKEND_WORKDAY)[1] == zero, \
+    assert operation.calculate_worked_time(__WEEKEND_WORKDAY)[1] == zero, \
         f"It should return {zero} as expected calculation result"
+
+
+def it_should_return_the_expected_extra_time_calculation():
+    operation = WeekendDayOperation(__SCHEDULE)
+    expected_result = timedelta(hours=7)
+
+    assert operation.calculate_extra_time(__WEEKEND_WORKDAY) == expected_result, \
+        f"It should return {expected_result} as calculation result"

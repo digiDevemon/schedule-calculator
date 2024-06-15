@@ -33,12 +33,20 @@ def it_should_return_the_expected_response_fulfilling_the_schedule(day, expected
 def it_should_return_the_expected_calculation():
     operation = ShortDayOperation(__SCHEDULE)
 
-    assert operation.calculate(__SHORT_WORKDAY)[0] == __SHORT_DELTA, \
+    assert operation.calculate_worked_time(__SHORT_WORKDAY)[0] == __SHORT_DELTA, \
         f"It should return {__SHORT_DELTA} as calculation result"
 
 
 def it_should_return_the_expected_delta_calculation():
     operation = ShortDayOperation(__SCHEDULE)
 
-    assert operation.calculate(__SHORT_WORKDAY)[1] == __SHORT_DELTA, \
+    assert operation.calculate_worked_time(__SHORT_WORKDAY)[1] == __SHORT_DELTA, \
         f"It should return {__SHORT_DELTA} as expected calculation result"
+
+
+def it_should_return_the_expected_extra_time_calculation():
+    operation = ShortDayOperation(__SCHEDULE)
+    expected_result = timedelta(hours=0)
+
+    assert operation.calculate_extra_time(__SHORT_WORKDAY) == expected_result, \
+        f"It should return {expected_result} as calculation result"

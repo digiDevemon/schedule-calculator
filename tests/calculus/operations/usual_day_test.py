@@ -30,15 +30,23 @@ def it_should_return_the_expected_response_fulfilling_the_schedule(day, expected
     assert operation.fulfill(day) == expected_result, f"It should return {expected_result} for {day}"
 
 
-def it_should_return_the_expected_calculation():
+def it_should_return_the_expected_worked_time_calculation():
     operation = UsualDayOperation(__SCHEDULE)
 
-    assert operation.calculate(__WORKDAY)[0] == __STANDARD_DELTA, \
+    assert operation.calculate_worked_time(__WORKDAY)[0] == __STANDARD_DELTA, \
         f"It should return {__STANDARD_DELTA} as calculation result"
 
 
-def it_should_return_the_expected_delta_calculation():
+def it_should_return_the_expected_delta_from_worked_time_calculation():
     operation = UsualDayOperation(__SCHEDULE)
 
-    assert operation.calculate(__WORKDAY)[1] == __STANDARD_DELTA, \
+    assert operation.calculate_worked_time(__WORKDAY)[1] == __STANDARD_DELTA, \
         f"It should return {__STANDARD_DELTA} as expected calculation result"
+
+
+def it_should_return_the_expected_extra_time_calculation():
+    operation = UsualDayOperation(__SCHEDULE)
+    expected_result = timedelta(hours=0)
+
+    assert operation.calculate_extra_time(__WORKDAY) == expected_result, \
+        f"It should return {expected_result} as calculation result"

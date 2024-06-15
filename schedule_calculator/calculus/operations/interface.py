@@ -12,5 +12,9 @@ class Operation(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def calculate(self, work_day: Workday) -> Tuple[datetime.timedelta, datetime.timedelta]:
+    def calculate_worked_time(self, work_day: Workday) -> Tuple[datetime.timedelta, datetime.timedelta]:
+        raise NotImplementedError
+
+    @abstractmethod
+    def calculate_extra_time(self, work_day: Workday) -> datetime.timedelta:
         raise NotImplementedError
