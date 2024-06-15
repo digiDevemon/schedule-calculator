@@ -19,10 +19,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade poetry
-        poetry config virtualenvs.create false --local
-        poetry lock
-        poetry install
+        ./scripts/linux/setup.sh
     - name: Analysing the code with lint
       run: |
         ./scripts/linux/run-lint.sh
