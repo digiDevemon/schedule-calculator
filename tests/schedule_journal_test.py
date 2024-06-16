@@ -1,14 +1,14 @@
 import io
 import os
 from contextlib import redirect_stdout
-from datetime import timedelta, datetime
+from datetime import datetime
 
 from pytest import fixture
 
 from schedule_calculator.schedule_journal import create_schedule_journal_for_testing
 from tests.fakes.clock_fake import ClockFake
-from tests.fakes.time_entry_repository_fake import TimeEntryRepositoryFake
 from tests.fakes.presenter_fake import PresenterFake
+from tests.fakes.time_entry_repository_fake import TimeEntryRepositoryFake
 
 __CONFIG = {
     "schedule": {
