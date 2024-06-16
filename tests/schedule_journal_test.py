@@ -5,10 +5,10 @@ from datetime import timedelta, datetime
 
 from pytest import fixture
 
-from schedule_calculator.schedule_journal import create_schedule_journal_with_repository, \
-    create_schedule_journal_with_repository_and_clock
+from schedule_calculator.schedule_journal import create_schedule_journal_for_testing
 from tests.fakes.clock_fake import ClockFake
 from tests.fakes.time_entry_repository_fake import TimeEntryRepositoryFake
+from tests.fakes.presenter_fake import PresenterFake
 
 __CONFIG = {
     "schedule": {
@@ -20,42 +20,42 @@ __CONFIG = {
     }
 }
 __CURRENT_PATH = os.path.dirname(os.path.realpath(__file__))
+__EXTRA_HOURS_MESSAGE = "just a message for extra hours"
+__WORKDAY_HOURS_MESSAGE = "just a message for workday hours"
 
 
-def it_should_create_time_file_when_init_journal(temporal_repository):
-    schedule_journal = create_schedule_journal_with_repository(__CONFIG, temporal_repository)
+def it_should_create_time_file_when_init_journal(temporal_repository, clock, presenter):
+    schedule_journal = create_schedule_journal_for_testing(__CONFIG, temporal_repository, clock, presenter)
     schedule_journal.init()
-    assert temporal_repository.repository_contains_time(), "It should saved current time"
+    assert temporal_repository.repository_contains_time(), "It should save current time"
 
 
-def it_should_print_the_expected_message(temporal_repository, clock):
+def it_should_print_the_expected_message(temporal_repository, clock, presenter):
     temporal_repository.set_saved_entry(datetime(year=1991, month=7, day=8, hour=8, minute=0, second=0))
     clock.set_current_time(datetime(year=1991, month=7, day=8, hour=17, minute=0, second=0))
     clock.set_today_day("Monday")
-    schedule_journal = create_schedule_journal_with_repository_and_clock(__CONFIG, temporal_repository, clock)
+    schedule_journal = create_schedule_journal_for_testing(__CONFIG, temporal_repository, clock, presenter)
 
     output = io.StringIO()
     with redirect_stdout(output):
         schedule_journal.check()
     out_value = output.getvalue().replace("\n", "")
 
-    assert out_value == f"You have worked 08:15. Today you have to work 08:15.", \
-        "It should return the expected stdout message"
+    assert out_value == __WORKDAY_HOURS_MESSAGE
 
 
-def it_should_print_the_expected_message_when_the_time_vector_is_not_positive(temporal_repository, clock):
+def it_should_print_the_expected_message_when_the_time_vector_is_not_positive(temporal_repository, clock, presenter):
     temporal_repository.set_saved_entry(datetime(year=1991, month=7, day=8, hour=8, minute=0, second=0))
-    clock.set_current_time(datetime(year=1991, month=7, day=8, hour=8, minute=15, second=0))
+    clock.set_current_time(datetime(year=1991, month=7, day=8, hour=21, minute=15, second=0))
     clock.set_today_day("Monday")
-    schedule_journal = create_schedule_journal_with_repository_and_clock(__CONFIG, temporal_repository, clock)
+    schedule_journal = create_schedule_journal_for_testing(__CONFIG, temporal_repository, clock, presenter)
 
     output = io.StringIO()
     with redirect_stdout(output):
         schedule_journal.check()
     out_value = output.getvalue().replace("\n", "")
 
-    assert out_value == f"You have worked 00:00. Today you have to work 08:15.", \
-        "It should return the expected stdout message"
+    assert out_value == __EXTRA_HOURS_MESSAGE
 
 
 @fixture
@@ -68,3 +68,11 @@ def temporal_repository():
 @fixture
 def clock():
     return ClockFake()
+
+
+@fixture
+def presenter():
+    presenter = PresenterFake()
+    presenter.set_default_message_workday(__WORKDAY_HOURS_MESSAGE)
+    presenter.set_default_message_extra_hours(__EXTRA_HOURS_MESSAGE)
+    return presenter
