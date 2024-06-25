@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 
 from schedule_calculator.calculus.workday_calculator import WorkDayCalculator
 from schedule_calculator.time.schedule import Schedule
@@ -7,9 +7,17 @@ from schedule_calculator.time.workday import Workday
 __STANDARD_DELTA = timedelta(hours=8, minutes=15)
 __SHORT_DELTA = timedelta(hours=7)
 __LAUNCH_DELTA = timedelta(hours=0, minutes=45)
+__CONTINUOUS_DELTA = timedelta(hours=8, minutes=0)
 __SHORT_DAYS = ['Friday']
 __WEEKEND_DAYS = ['Saturday', 'Sunday']
-__SCHEDULE = Schedule(__STANDARD_DELTA, __SHORT_DELTA, __LAUNCH_DELTA, __SHORT_DAYS, __WEEKEND_DAYS)
+__CONTINUOUS_PERIOD_START = date(year=1997, month=5, day=20)
+__CONTINUOUS_PERIOD_END = date(year=1997, month=9, day=27)
+__CONTINUOUS_SCHEDULE = {
+    "start": __CONTINUOUS_PERIOD_START,
+    "end": __CONTINUOUS_PERIOD_END
+}
+__SCHEDULE = Schedule(__STANDARD_DELTA, __SHORT_DELTA, __LAUNCH_DELTA, __CONTINUOUS_DELTA, __SHORT_DAYS, __WEEKEND_DAYS,
+                      __CONTINUOUS_SCHEDULE)
 
 __START_HOUR = datetime(year=1997, month=7, day=7, hour=8, minute=0, second=0)
 __END_HOUR = datetime(year=1997, month=7, day=7, hour=17, minute=0, second=0)

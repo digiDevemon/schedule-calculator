@@ -2,7 +2,7 @@ import datetime
 from datetime import timedelta
 
 from schedule_calculator.calculus.exceptions.unknown_operation_day import UnknownOperationDay
-from schedule_calculator.calculus.operations import usual_day, short_day, weekend_day
+from schedule_calculator.calculus.operations import usual_day, short_day, weekend_day, continuous_schedule_day
 from schedule_calculator.time.schedule import Schedule
 from schedule_calculator.time.workday import Workday
 
@@ -11,7 +11,8 @@ class WorkDayCalculator:
 
     def __init__(self, schedule: Schedule):
         self.schedule = schedule
-        self.operations = [usual_day.UsualDayOperation(schedule),
+        self.operations = [continuous_schedule_day.ContinuousDayScheduleOperation(schedule),
+                           usual_day.UsualDayOperation(schedule),
                            short_day.ShortDayOperation(schedule),
                            weekend_day.WeekendDayOperation(schedule)]
         self.zero_time = timedelta(hours=0)

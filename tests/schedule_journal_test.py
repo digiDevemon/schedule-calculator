@@ -15,8 +15,13 @@ __CONFIG = {
         "standard": "08:15",
         "short": "07:00",
         "launch": "00:45",
+        "continuous": "8:00",
         "short_days": ['Friday'],
         "weekend_days": ['Saturday', 'Sunday'],
+        "continuous_period": {
+            "start": "05-27",
+            "end": "09-27"
+        }
     }
 }
 __CURRENT_PATH = os.path.dirname(os.path.realpath(__file__))
