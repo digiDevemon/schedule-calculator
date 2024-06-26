@@ -19,8 +19,8 @@ __CONTINUOUS_SCHEDULE = {
 __SCHEDULE = Schedule(__STANDARD_DELTA, __SHORT_DELTA, __LAUNCH_DELTA, __CONTINUOUS_DELTA, __SHORT_DAYS, __WEEKEND_DAYS,
                       __CONTINUOUS_SCHEDULE)
 
-__START_HOUR = datetime(year=1997, month=7, day=7, hour=8, minute=0, second=0)
-__END_HOUR = datetime(year=1997, month=7, day=7, hour=17, minute=0, second=0)
+__START_HOUR = datetime(year=1997, month=1, day=7, hour=8, minute=0, second=0)
+__END_HOUR = datetime(year=1997, month=1, day=7, hour=17, minute=0, second=0)
 
 __EXPECTED_ZERO_DELTA_HOURS = timedelta(hours=0)
 __EXPECTED_STANDARD_DELTA_HOURS = timedelta(hours=8, minutes=15)

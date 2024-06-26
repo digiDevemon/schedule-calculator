@@ -42,6 +42,16 @@ def it_should_return_the_expected_response_fulfilling_the_schedule(day, expected
     assert operation.fulfill(day) == expected_result, f"It should return {expected_result} for {day}"
 
 
+def it_should_return_false_fulfilling_a_schedule_without_continuous_period():
+    schedule_properties = __SCHEDULE.__dict__
+    schedule_properties.pop("continuous_period")
+    new_schedule = Schedule(**schedule_properties)
+
+    operation = ContinuousDayScheduleOperation(new_schedule)
+
+    assert not operation.fulfill(__CONTINUOUS_DAY), f"It should return false for schedule without continuous period"
+
+
 def it_should_return_the_expected_calculation():
     operation = ContinuousDayScheduleOperation(__SCHEDULE)
 

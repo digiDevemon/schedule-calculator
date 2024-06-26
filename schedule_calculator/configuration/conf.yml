@@ -1,13 +1,11 @@
 schedule:
+  location: "Madrid"
   standard: "08:15"
   short : "07:00"
   continuous: "8:00"
   launch : "00:45"
   short_days: ["Friday"]
   weekend_days: ["Saturday", "Sunday"]
-  launch_time:
-    start: "12:00"
-    end: "15:00"
-  continuous_period:
+  continuous_period: # OPTIONAL
     start: "05-20"
     end: "09-27"

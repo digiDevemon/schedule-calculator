@@ -1,6 +1,7 @@
 import datetime
 from dataclasses import dataclass
 from typing import List
+from typing import Optional
 
 
 @dataclass(frozen=True)
@@ -11,4 +12,4 @@ class Schedule:
     continuous_time: datetime.timedelta
     short_days: List[str]
     weekend_days: List[str]
-    continuous_period: dict
+    continuous_period: Optional[dict] = None

@@ -1,6 +1,8 @@
 import datetime
 from datetime import timedelta
 
+from pytest import fixture
+
 from schedule_calculator.time.assemblers.schedule_assembler import ScheduleAssembler
 from schedule_calculator.time.assemblers.time_formatter import TimeFormatter
 
@@ -31,67 +33,63 @@ __EXPECTED_CONTINUOUS_PERIOD_VALUE = {
 }
 
 
-def it_should_not_return_none():
-    time_formatter = TimeFormatter()
-
+def it_should_not_return_none(time_formatter):
     schedule_assembler = ScheduleAssembler(time_formatter)
 
     assert schedule_assembler.get_schedule(__SCHEDULE_CONFIG) is not None, "It should not return none"
 
 
-def it_should_return_the_expected_schedule_with_standard_time_value():
-    time_formatter = TimeFormatter()
-
+def it_should_return_the_expected_schedule_with_standard_time_value(time_formatter):
     schedule = ScheduleAssembler(time_formatter).get_schedule(__SCHEDULE_CONFIG)
 
     assert schedule.standard_time == __STANDARD_TIME, f"It should return {__STANDARD_TIME} as standard time"
 
 
-def it_should_return_the_expected_schedule_with_short_time_value():
-    time_formatter = TimeFormatter()
-
+def it_should_return_the_expected_schedule_with_short_time_value(time_formatter):
     schedule = ScheduleAssembler(time_formatter).get_schedule(__SCHEDULE_CONFIG)
 
     assert schedule.short_time == __SHORT_TIME, f"It should return {__SHORT_TIME} as short time"
 
 
-def it_should_return_the_expected_schedule_with_launch_time_value():
-    time_formatter = TimeFormatter()
-
+def it_should_return_the_expected_schedule_with_launch_time_value(time_formatter):
     schedule = ScheduleAssembler(time_formatter).get_schedule(__SCHEDULE_CONFIG)
 
     assert schedule.launch_time == __LAUNCH_TIME, f"It should return {__LAUNCH_TIME} as launch time"
 
 
-def it_should_return_the_expected_schedule_with_short_days_value():
-    time_formatter = TimeFormatter()
-
+def it_should_return_the_expected_schedule_with_short_days_value(time_formatter):
     schedule = ScheduleAssembler(time_formatter).get_schedule(__SCHEDULE_CONFIG)
 
     assert schedule.short_days == __SHORT_DAYS, f"It should return {__SHORT_DAYS} as launch time"
 
 
-def it_should_return_the_expected_schedule_with_weekend_days_value():
-    time_formatter = TimeFormatter()
-
+def it_should_return_the_expected_schedule_with_weekend_days_value(time_formatter):
     schedule = ScheduleAssembler(time_formatter).get_schedule(__SCHEDULE_CONFIG)
 
     assert schedule.weekend_days == __WEEKEND_DAYS, f"It should return {__WEEKEND_DAYS} as weekend time"
 
 
-def it_should_return_the_expected_schedule_with_continuous_delta_value():
-    time_formatter = TimeFormatter()
-
+def it_should_return_the_expected_schedule_with_continuous_delta_value(time_formatter):
     schedule = ScheduleAssembler(time_formatter).get_schedule(__SCHEDULE_CONFIG)
 
     assert schedule.continuous_time == __CONTINUOUS_DELTA, \
         f"It should return {__CONTINUOUS_DELTA} as continuous delta"
 
 
-def it_should_return_the_expected_schedule_with_continuous_period_days_value():
-    time_formatter = TimeFormatter()
-
+def it_should_return_the_expected_schedule_with_continuous_period_days_value(time_formatter):
     schedule = ScheduleAssembler(time_formatter).get_schedule(__SCHEDULE_CONFIG)
 
     assert schedule.continuous_period == __EXPECTED_CONTINUOUS_PERIOD_VALUE, \
         f"It should return {__EXPECTED_CONTINUOUS_PERIOD_VALUE} as continuous period"
+
+
+def it_should_return_a_schedule_without_continuous_period_days_value(time_formatter):
+    new_schedule = __SCHEDULE_CONFIG.copy()
+    new_schedule.pop("continuous_period")
+    schedule = ScheduleAssembler(time_formatter).get_schedule(new_schedule)
+
+    assert not schedule.continuous_period, f"It should not contains continuous period"
+
+@fixture
+def time_formatter():
+    return TimeFormatter()

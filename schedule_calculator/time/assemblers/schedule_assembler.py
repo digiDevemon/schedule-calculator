@@ -1,3 +1,5 @@
+from typing import Optional
+
 from schedule_calculator.time.assemblers.time_formatter import TimeFormatter
 from schedule_calculator.time.schedule import Schedule
 
@@ -21,7 +23,10 @@ class ScheduleAssembler:
         return Schedule(delta_schedule_standard, delta_schedule_short, delta_launch, delta_continuous,
                         short_days, weekend_days, continuous_period)
 
-    def __get_continuous_period(self, configuration: dict):
+    def __get_continuous_period(self, configuration: dict) -> Optional[dict]:
+        if "continuous_period" not in configuration.keys():
+            return None
+
         return {
             "start": self.time_formatter.get_date_from_str(configuration["continuous_period"]["start"]),
             "end": self.time_formatter.get_date_from_str(configuration["continuous_period"]["end"])

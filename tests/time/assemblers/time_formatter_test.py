@@ -1,7 +1,7 @@
 import datetime
 
-from pytest import fixture
-
+from pytest import fixture, raises
+from schedule_calculator.time.exceptions.schedule_parsing import ScheduleParsingError
 from schedule_calculator.time.assemblers.time_formatter import TimeFormatter
 
 __TIME_STRING = "1997-07-07T07:07:00Z"
@@ -26,6 +26,12 @@ def it_should_return_the_expected_str_from_time(time_formatter):
 def it_should_return_the_expected_date_from_str(time_formatter):
     assert time_formatter.get_date_from_str(__DATE_STRING) == __EXPECTED_DATE_OBJECT, \
         f"It should return {__EXPECTED_DATE_OBJECT}"
+
+
+def it_should_raise_an_exception_when_it_is_not_able_to_get_date_from_str(time_formatter):
+    with raises(ScheduleParsingError) as exc_info:
+        time_formatter.get_date_from_str("foo")
+    assert exc_info.type is ScheduleParsingError, "It should raise an exception"
 
 
 @fixture

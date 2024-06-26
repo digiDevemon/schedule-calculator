@@ -8,6 +8,9 @@ from schedule_calculator.time.workday import Workday
 
 class ContinuousDayScheduleOperation(Operation):
     def fulfill(self, work_day: Workday) -> bool:
+        if not self.schedule.continuous_period:
+            return False
+
         return work_day.is_in_period(self.schedule.continuous_period["start"], self.schedule.continuous_period["end"])
 
     def calculate_extra_time(self, work_day: Workday) -> datetime.timedelta:
