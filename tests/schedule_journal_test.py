@@ -11,16 +11,19 @@ from tests.fakes.presenter_fake import PresenterFake
 from tests.fakes.time_entry_repository_fake import TimeEntryRepositoryFake
 
 __CONFIG = {
-    "schedule": {
+    "work_calendar": {
+        "location": "ES-MD",
         "standard": "08:15",
         "short": "07:00",
         "launch": "00:45",
         "continuous": "8:00",
         "short_days": ['Friday'],
-        "weekend_days": ['Saturday', 'Sunday'],
         "continuous_period": {
-            "start": "05-27",
-            "end": "09-27"
+            "work_time": "8:00",
+            "period": {
+                "start": "05-27",
+                "end": "09-27"
+            }
         }
     }
 }

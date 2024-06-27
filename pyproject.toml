@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "schedule_calculator"
-version = "0.7.1"
+version = "1.0.0"
 description = ""
 authors = ["Digidevemon <digi.deve.mon@tutamail.com>"]
 readme = "README.md"
@@ -9,6 +9,8 @@ readme = "README.md"
 python = "^3.11"
 PyYAML = "6.0.1"
 types-PyYAML = "6.0.12.20240311"
+holidays = "^0.51"
+pycountry = "24.6.1"
 
 [tool.poetry.group.test.dependencies]
 pytest = "8.0.2"
@@ -19,3 +21,6 @@ mypy = "1.10.0"
 testpaths = ["tests"]
 python_files = ["*_test.py"]
 python_functions = ["it_should_*"]
+filterwarnings = [
+    "ignore::DeprecationWarning:holidays",
+]
