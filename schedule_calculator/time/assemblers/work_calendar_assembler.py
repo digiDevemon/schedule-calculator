@@ -1,16 +1,22 @@
 from typing import Optional
 
+from schedule_calculator.time.assemblers.free_days_calendar_assembler import FreeDaysCalendarAssembler
 from schedule_calculator.time.assemblers.time_formatter import TimeFormatter
-from schedule_calculator.time.schedule import Schedule
+from schedule_calculator.time.clock import Clock
+from schedule_calculator.time.workcalendar import WorkCalendar
 
 
 class ScheduleAssembler:
 
-    def __init__(self, time_formatter: TimeFormatter):
+    def __init__(self, time_formatter: TimeFormatter, clock: Clock):
         self.time_formatter = time_formatter
+        self.clock = clock
+        self.holiday_calendar_assembler = FreeDaysCalendarAssembler()
 
-    def get_schedule(self, configuration: dict) -> Schedule:
+    def get_schedule(self, configuration: dict) -> WorkCalendar:
         time_formatter = self.time_formatter
+
+        current_date = self.clock.get_current_date()
 
         delta_schedule_standard = time_formatter.get_delta_from_str(configuration["standard"])
         delta_schedule_short = time_formatter.get_delta_from_str(configuration["short"])
@@ -18,10 +24,13 @@ class ScheduleAssembler:
         delta_continuous = time_formatter.get_delta_from_str(configuration["continuous"])
 
         short_days = configuration["short_days"]
-        weekend_days = configuration["weekend_days"]
+
         continuous_period = self.__get_continuous_period(configuration)
-        return Schedule(delta_schedule_standard, delta_schedule_short, delta_launch, delta_continuous,
-                        short_days, weekend_days, continuous_period)
+        free_days = self.holiday_calendar_assembler.get_calendar_from_str(configuration["location"],
+                                                                          current_date.year)
+
+        return WorkCalendar(current_date, delta_schedule_standard, delta_schedule_short, delta_launch, delta_continuous,
+                            short_days, free_days, continuous_period)
 
     def __get_continuous_period(self, configuration: dict) -> Optional[dict]:
         if "continuous_period" not in configuration.keys():
