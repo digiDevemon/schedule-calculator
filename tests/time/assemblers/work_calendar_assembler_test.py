@@ -6,6 +6,9 @@ from pytest import fixture
 
 from schedule_calculator.time.assemblers.time_formatter import TimeFormatter
 from schedule_calculator.time.assemblers.work_calendar_assembler import WorkCalendarAssembler
+from schedule_calculator.time.schedule import Schedule
+
+    
 from tests.fakes.clock_fake import ClockFake
 
 __SHORT_DAYS = ["Friday"]
@@ -36,49 +39,64 @@ __EXPECTED_CONTINUOUS_PERIOD_VALUE = {
     "start": __CONTINUOUS_PERIOD_START,
     "end": __CONTINUOUS_PERIOD_END
 }
+__EXPECTED_CONTINUOUS_SCHEDULE_VALUE = Schedule(work_time=__CONTINUOUS_DELTA, period=__EXPECTED_CONTINUOUS_PERIOD_VALUE)
 
 
 def it_should_not_return_none(time_formatter, clock):
-    schedule_assembler = WorkCalendarAssembler(time_formatter, clock)
+    work_calendar_assembler = WorkCalendarAssembler(time_formatter, clock)
 
-    assert schedule_assembler.get_schedule(__WORK_CALENDAR_CONFIG) is not None, "It should not return none"
-
-
-def it_should_return_the_expected_schedule_with_standard_time_value(time_formatter, clock):
-    schedule = WorkCalendarAssembler(time_formatter, clock).get_schedule(__WORK_CALENDAR_CONFIG)
-
-    assert schedule.standard_time == __STANDARD_TIME, f"It should return {__STANDARD_TIME} as standard time"
+    assert work_calendar_assembler.get_work_calendar(__WORK_CALENDAR_CONFIG) is not None, "It should not return none"
 
 
-def it_should_return_the_expected_schedule_with_short_time_value(time_formatter, clock):
-    schedule = WorkCalendarAssembler(time_formatter, clock).get_schedule(__WORK_CALENDAR_CONFIG)
+def it_should_return_the_expected_work_calendar_with_standard_time_value(time_formatter, clock):
+    work_calendar = WorkCalendarAssembler(time_formatter, clock).get_work_calendar(__WORK_CALENDAR_CONFIG)
 
-    assert schedule.short_time == __SHORT_TIME, f"It should return {__SHORT_TIME} as short time"
-
-
-def it_should_return_the_expected_schedule_with_launch_time_value(time_formatter, clock):
-    schedule = WorkCalendarAssembler(time_formatter, clock).get_schedule(__WORK_CALENDAR_CONFIG)
-
-    assert schedule.launch_time == __LAUNCH_TIME, f"It should return {__LAUNCH_TIME} as launch time"
+    assert work_calendar.standard_time == __STANDARD_TIME, f"It should return {__STANDARD_TIME} as standard time"
 
 
-def it_should_return_the_expected_schedule_with_short_days_value(time_formatter, clock):
-    schedule = WorkCalendarAssembler(time_formatter, clock).get_schedule(__WORK_CALENDAR_CONFIG)
+def it_should_return_the_expected_work_calendar_with_short_time_value(time_formatter, clock):
+    work_calendar = WorkCalendarAssembler(time_formatter, clock).get_work_calendar(__WORK_CALENDAR_CONFIG)
 
-    assert schedule.short_days == __SHORT_DAYS, f"It should return {__SHORT_DAYS} as launch time"
-
-
-def it_should_return_the_expected_schedule_with_current_date_value(time_formatter, clock):
-    schedule = WorkCalendarAssembler(time_formatter, clock).get_schedule(__WORK_CALENDAR_CONFIG)
-    assert schedule.current_date == __CURRENT_DATE, f"It should return {__CURRENT_DATE} as current_date"
+    assert work_calendar.short_time == __SHORT_TIME, f"It should return {__SHORT_TIME} as short time"
 
 
-def it_should_return_the_expected_schedule_with_free_days_value(time_formatter, clock):
-    schedule = WorkCalendarAssembler(time_formatter, clock).get_schedule(__WORK_CALENDAR_CONFIG)
+def it_should_return_the_expected_work_calendar_with_launch_time_value(time_formatter, clock):
+    work_calendar = WorkCalendarAssembler(time_formatter, clock).get_work_calendar(__WORK_CALENDAR_CONFIG)
 
-    assert schedule.free_days == __FREE_DAYS, \
+    assert work_calendar.launch_time == __LAUNCH_TIME, f"It should return {__LAUNCH_TIME} as launch time"
+
+
+def it_should_return_the_expected_work_calendar_with_short_days_value(time_formatter, clock):
+    work_calendar = WorkCalendarAssembler(time_formatter, clock).get_work_calendar(__WORK_CALENDAR_CONFIG)
+
+    assert work_calendar.short_days == __SHORT_DAYS, f"It should return {__SHORT_DAYS} as launch time"
+
+
+def it_should_return_the_expected_work_calendar_with_current_date_value(time_formatter, clock):
+    work_calendar = WorkCalendarAssembler(time_formatter, clock).get_work_calendar(__WORK_CALENDAR_CONFIG)
+    assert work_calendar.current_date == __CURRENT_DATE, f"It should return {__CURRENT_DATE} as current_date"
+
+
+def it_should_return_the_expected_work_calendar_with_free_days_value(time_formatter, clock):
+    work_calendar = WorkCalendarAssembler(time_formatter, clock).get_work_calendar(__WORK_CALENDAR_CONFIG)
+
+    assert work_calendar.free_days == __FREE_DAYS, \
         f"It should return {__FREE_DAYS} as free day"
 
+
+def it_should_return_the_expected_work_calendar_with_continuous_work_schedule(time_formatter, clock):
+    work_calendar = WorkCalendarAssembler(time_formatter, clock).get_work_calendar(__WORK_CALENDAR_CONFIG)
+    
+    assert work_calendar.continuous_schedule == __EXPECTED_CONTINUOUS_SCHEDULE_VALUE, \
+        f"It should return {__EXPECTED_CONTINUOUS_SCHEDULE_VALUE} as continuous schedule schedule"
+
+def it_should_return_the_expected_work_calendar_without_continuous_work_schedule(time_formatter, clock):
+    new_work_config = __WORK_CALENDAR_CONFIG.copy()
+    new_work_config.pop("continuous_schedule")
+
+    work_calendar = WorkCalendarAssembler(time_formatter, clock).get_work_calendar(new_work_config)
+
+    assert not work_calendar.continuous_schedule
 
 @fixture
 def time_formatter():

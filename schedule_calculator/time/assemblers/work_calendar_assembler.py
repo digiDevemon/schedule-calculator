@@ -14,7 +14,7 @@ class WorkCalendarAssembler:
         self.clock = clock
         self.holiday_calendar_assembler = FreeDaysCalendarAssembler()
 
-    def get_schedule(self, configuration: dict) -> WorkCalendar:
+    def get_work_calendar(self, configuration: dict) -> WorkCalendar:
         time_formatter = self.time_formatter
 
         current_date = self.clock.get_current_date()

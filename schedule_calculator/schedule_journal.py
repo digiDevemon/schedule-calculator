@@ -45,16 +45,16 @@ def create_schedule_journal(configuration: dict) -> ScheduleJournal:
     time_formatter = TimeFormatter()
     clock = Clock()
 
-    schedule = WorkCalendarAssembler(time_formatter, clock).get_schedule(configuration["work_calendar"])
+    work_calendar = WorkCalendarAssembler(time_formatter, clock).get_work_calendar(configuration["work_calendar"])
     time_entry_repository = create_time_entry_repository()
     presenter = Presenter()
 
-    return ScheduleJournal(WorkDayCalculator(schedule), time_entry_repository, presenter, clock)
+    return ScheduleJournal(WorkDayCalculator(work_calendar), time_entry_repository, presenter, clock)
 
 
 def create_schedule_journal_for_testing(configuration: dict, time_entry_repository: TimeEntryRepository,
                                         clock: Clock, presenter: Presenter) -> ScheduleJournal:
     time_formatter = TimeFormatter()
-    schedule = WorkCalendarAssembler(time_formatter, clock).get_schedule(configuration["work_calendar"])
+    work_calendar = WorkCalendarAssembler(time_formatter, clock).get_work_calendar(configuration["work_calendar"])
 
-    return ScheduleJournal(WorkDayCalculator(schedule), time_entry_repository, presenter, clock)
+    return ScheduleJournal(WorkDayCalculator(work_calendar), time_entry_repository, presenter, clock)
