@@ -6,9 +6,8 @@ from pytest import fixture
 
 from schedule_calculator.time.assemblers.time_formatter import TimeFormatter
 from schedule_calculator.time.assemblers.work_calendar_assembler import WorkCalendarAssembler
+from schedule_calculator.time.date_period import DatePeriod
 from schedule_calculator.time.schedule import Schedule
-
-    
 from tests.fakes.clock_fake import ClockFake
 
 __SHORT_DAYS = ["Friday"]
@@ -35,11 +34,10 @@ __CURRENT_DATE = datetime.date.today()
 __FREE_DAYS = country_holidays("ES", subdiv="MD", years=__CURRENT_DATE.year)
 __CONTINUOUS_PERIOD_START = datetime.date(year=__CURRENT_DATE.year, month=5, day=20)
 __CONTINUOUS_PERIOD_END = datetime.date(year=__CURRENT_DATE.year, month=9, day=27)
-__EXPECTED_CONTINUOUS_PERIOD_VALUE = {
-    "start": __CONTINUOUS_PERIOD_START,
-    "end": __CONTINUOUS_PERIOD_END
-}
-__EXPECTED_CONTINUOUS_SCHEDULE_VALUE = Schedule(work_time=__CONTINUOUS_DELTA, period=__EXPECTED_CONTINUOUS_PERIOD_VALUE)
+
+__EXPECTED_CONTINUOUS_SCHEDULE_VALUE = Schedule(work_time=__CONTINUOUS_DELTA,
+                                                period=DatePeriod(start=__CONTINUOUS_PERIOD_START,
+                                                                  end=__CONTINUOUS_PERIOD_END))
 
 
 def it_should_not_return_none(time_formatter, clock):
@@ -86,9 +84,10 @@ def it_should_return_the_expected_work_calendar_with_free_days_value(time_format
 
 def it_should_return_the_expected_work_calendar_with_continuous_work_schedule(time_formatter, clock):
     work_calendar = WorkCalendarAssembler(time_formatter, clock).get_work_calendar(__WORK_CALENDAR_CONFIG)
-    
+
     assert work_calendar.continuous_schedule == __EXPECTED_CONTINUOUS_SCHEDULE_VALUE, \
         f"It should return {__EXPECTED_CONTINUOUS_SCHEDULE_VALUE} as continuous schedule schedule"
+
 
 def it_should_return_the_expected_work_calendar_without_continuous_work_schedule(time_formatter, clock):
     new_work_config = __WORK_CALENDAR_CONFIG.copy()
@@ -97,6 +96,7 @@ def it_should_return_the_expected_work_calendar_without_continuous_work_schedule
     work_calendar = WorkCalendarAssembler(time_formatter, clock).get_work_calendar(new_work_config)
 
     assert not work_calendar.continuous_schedule
+
 
 @fixture
 def time_formatter():

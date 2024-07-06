@@ -5,7 +5,7 @@ from holidays import country_holidays
 
 from schedule_calculator.calculus.operations.free_day import FreeDayOperation
 from schedule_calculator.time.schedule import Schedule
-from schedule_calculator.time.workcalendar import WorkCalendar
+from schedule_calculator.time.work_calendar import WorkCalendar
 from schedule_calculator.time.workday import Workday
 
 __STANDARD_DELTA = timedelta(hours=8, minutes=15)

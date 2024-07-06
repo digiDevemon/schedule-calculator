@@ -2,7 +2,7 @@ import datetime
 from typing import Tuple
 
 from schedule_calculator.calculus.operations.interface import Operation
-from schedule_calculator.time.workcalendar import WorkCalendar
+from schedule_calculator.time.work_calendar import WorkCalendar
 from schedule_calculator.time.workday import Workday
 
 

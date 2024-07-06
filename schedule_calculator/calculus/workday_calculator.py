@@ -3,7 +3,7 @@ from datetime import timedelta
 
 from schedule_calculator.calculus.exceptions.unknown_operation_day import UnknownOperationDay
 from schedule_calculator.calculus.operations import usual_day, short_day, free_day, continuous_schedule_day
-from schedule_calculator.time.workcalendar import WorkCalendar
+from schedule_calculator.time.work_calendar import WorkCalendar
 from schedule_calculator.time.workday import Workday
 
 

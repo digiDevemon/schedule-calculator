@@ -1,10 +1,10 @@
 import datetime
 from typing import Tuple
-from typing import cast, Dict
+from typing import cast
 
 from schedule_calculator.calculus.operations.interface import Operation
 from schedule_calculator.time.schedule import Schedule
-from schedule_calculator.time.workcalendar import WorkCalendar
+from schedule_calculator.time.work_calendar import WorkCalendar
 from schedule_calculator.time.workday import Workday
 
 
@@ -13,8 +13,11 @@ class ContinuousDayScheduleOperation(Operation):
         if not self.schedule.continuous_schedule:
             return False
 
-        return work_day.is_in_period(cast(Dict[str, datetime.date], self.schedule.continuous_schedule.period)["start"],
-                                     cast(Dict[str, datetime.date], self.schedule.continuous_schedule.period)["end"])
+        if not self.schedule.continuous_schedule.period:
+            return False
+
+        return work_day.is_in_period(cast(datetime.date, self.schedule.continuous_schedule.period.start),
+                                     cast(datetime.date, self.schedule.continuous_schedule.period.end))
 
     def calculate_extra_time(self, work_day: Workday) -> datetime.timedelta:
         return work_day.end - work_day.start - cast(Schedule, self.schedule.continuous_schedule).work_time

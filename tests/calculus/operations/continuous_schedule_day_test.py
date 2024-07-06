@@ -4,8 +4,9 @@ import pytest
 from holidays import country_holidays
 
 from schedule_calculator.calculus.operations.continuous_schedule_day import ContinuousDayScheduleOperation
+from schedule_calculator.time.date_period import DatePeriod
 from schedule_calculator.time.schedule import Schedule
-from schedule_calculator.time.workcalendar import WorkCalendar
+from schedule_calculator.time.work_calendar import WorkCalendar
 from schedule_calculator.time.workday import Workday
 
 __STANDARD_DELTA = timedelta(hours=8, minutes=15)
@@ -24,7 +25,8 @@ __CONTINUOUS_PERIOD = {
     "start": __CONTINUOUS_PERIOD_START,
     "end": __CONTINUOUS_PERIOD_END
 }
-__CONTINUOUS_SCHEDULE = Schedule(work_time=__CONTINUOUS_DELTA, period=__CONTINUOUS_PERIOD)
+__CONTINUOUS_SCHEDULE = Schedule(work_time=__CONTINUOUS_DELTA,
+                                 period=DatePeriod(start=__CONTINUOUS_PERIOD_START, end=__CONTINUOUS_PERIOD_END))
 
 __WORK_CALENDAR = WorkCalendar(__CURRENT_DATE, __STANDARD_DELTA, __SHORT_DELTA, __LAUNCH_DELTA,
                                [__SHORT_DAY], __FREE_DAYS, __CONTINUOUS_SCHEDULE)
