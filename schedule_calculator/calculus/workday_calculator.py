@@ -11,10 +11,10 @@ class WorkDayCalculator:
 
     def __init__(self, schedule: WorkCalendar):
         self.schedule = schedule
-        self.operations = [continuous_schedule_day.ContinuousDayScheduleOperation(schedule),
-                           usual_day.UsualDayOperation(schedule),
+        self.operations = [free_day.FreeDayOperation(schedule),
+                           continuous_schedule_day.ContinuousDayScheduleOperation(schedule),
                            short_day.ShortDayOperation(schedule),
-                           free_day.FreeDayOperation(schedule)]
+                           usual_day.UsualDayOperation(schedule)]
         self.zero_time = timedelta(hours=0)
 
     def calculate_worked_time(self, workday: Workday) -> (

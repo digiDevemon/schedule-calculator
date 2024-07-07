@@ -1,11 +1,12 @@
 work_calendar:
   location: "ES-MD"
   standard: "08:15"
-  short : "07:00"
-  launch : "00:45"
-  short_days: ["Friday"]
-  continuous_schedule:  # OPTIONAL
+  launch: "00:45"
+  continuous_schedule: # OPTIONAL
     work_time: "8:00"
-    period: # OPTIONAL
+    period:
       start: "05-20"
       end: "09-27"
+  short_schedule: # OPTIONAL
+    work_time: "7:00"
+    days: [ "Friday" ]

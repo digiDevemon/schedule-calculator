@@ -13,8 +13,6 @@ __STANDARD_DELTA = timedelta(hours=8, minutes=15)
 __SHORT_DELTA = timedelta(hours=7)
 __LAUNCH_DELTA = timedelta(hours=0, minutes=45)
 
-__SHORT_DAY = 'Friday'
-__WEEKEND_DAYS = ['Saturday', 'Sunday']
 __CURRENT_DATE = datetime(year=1997, month=5, day=20)
 __FREE_DAYS = country_holidays("ES", years=__CURRENT_DATE.year)
 
@@ -28,11 +26,10 @@ __CONTINUOUS_PERIOD = {
 __CONTINUOUS_SCHEDULE = Schedule(work_time=__CONTINUOUS_DELTA,
                                  period=DatePeriod(start=__CONTINUOUS_PERIOD_START, end=__CONTINUOUS_PERIOD_END))
 
-__WORK_CALENDAR = WorkCalendar(__CURRENT_DATE, __STANDARD_DELTA, __SHORT_DELTA, __LAUNCH_DELTA,
-                               [__SHORT_DAY], __FREE_DAYS, __CONTINUOUS_SCHEDULE)
+__WORK_CALENDAR = WorkCalendar(__CURRENT_DATE, __STANDARD_DELTA, __LAUNCH_DELTA, __FREE_DAYS, __CONTINUOUS_SCHEDULE)
 
-__WORK_CALENDAR_WITHOUT_CONTINUOUS_SCHEDULE = WorkCalendar(__CURRENT_DATE, __STANDARD_DELTA, __SHORT_DELTA,
-                                                           __LAUNCH_DELTA, [__SHORT_DAY], __FREE_DAYS)
+__WORK_CALENDAR_WITHOUT_CONTINUOUS_SCHEDULE = WorkCalendar(__CURRENT_DATE, __STANDARD_DELTA, __LAUNCH_DELTA,
+                                                           __FREE_DAYS)
 
 __START_HOUR = datetime(year=__CURRENT_DATE.year, month=7, day=7, hour=7, minute=0, second=0)
 __END_HOUR = datetime(year=__CURRENT_DATE.year, month=7, day=7, hour=15, minute=0, second=0)

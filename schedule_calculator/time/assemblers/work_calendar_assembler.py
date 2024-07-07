@@ -19,15 +19,13 @@ class WorkCalendarAssembler:
         current_date = self.clock.get_current_date()
 
         delta_schedule_standard = time_formatter.get_delta_from_str(configuration["standard"])
-        delta_schedule_short = time_formatter.get_delta_from_str(configuration["short"])
         delta_launch = time_formatter.get_delta_from_str(configuration["launch"])
 
-        short_days = configuration["short_days"]
-
         continuous_schedule = self.schedule_assembler.get_schedule_from_config(configuration.get("continuous_schedule"))
+        short_schedule = self.schedule_assembler.get_schedule_from_config(configuration.get("short_schedule"))
 
         free_days = self.holiday_calendar_assembler.get_calendar_from_str(configuration["location"],
                                                                           current_date.year)
 
-        return WorkCalendar(current_date, delta_schedule_standard, delta_schedule_short, delta_launch,
-                            short_days, free_days, continuous_schedule)
+        return WorkCalendar(current_date, delta_schedule_standard, delta_launch, free_days,
+                            continuous_schedule, short_schedule)

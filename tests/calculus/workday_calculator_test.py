@@ -1,10 +1,8 @@
-from datetime import datetime, timedelta, date
+from datetime import datetime, timedelta
 
 from holidays import country_holidays
 
 from schedule_calculator.calculus.workday_calculator import WorkDayCalculator
-from schedule_calculator.time.date_period import DatePeriod
-from schedule_calculator.time.schedule import Schedule
 from schedule_calculator.time.work_calendar import WorkCalendar
 from schedule_calculator.time.workday import Workday
 
@@ -12,20 +10,12 @@ __STANDARD_DELTA = timedelta(hours=8, minutes=15)
 __SHORT_DELTA = timedelta(hours=7)
 __LAUNCH_DELTA = timedelta(hours=0, minutes=45)
 
-__SHORT_DAYS = ['Friday']
 __WEEKEND_DAYS = ['Saturday', 'Sunday']
 __CURRENT_DATE = datetime(year=1997, month=5, day=20)
 
 __FREE_DAYS = country_holidays("ES", years=1997)
 
-__CONTINUOUS_DELTA = timedelta(hours=8, minutes=0)
-__CONTINUOUS_PERIOD_START = date(year=__CURRENT_DATE.year, month=5, day=20)
-__CONTINUOUS_PERIOD_END = date(year=__CURRENT_DATE.year, month=9, day=27)
-__CONTINUOUS_SCHEDULE = Schedule(work_time=__CONTINUOUS_DELTA,
-                                 period=DatePeriod(start=__CONTINUOUS_PERIOD_START, end=__CONTINUOUS_PERIOD_END))
-
-__WORK_CALENDAR = WorkCalendar(__CURRENT_DATE, __STANDARD_DELTA, __SHORT_DELTA, __LAUNCH_DELTA, __SHORT_DAYS,
-                               __FREE_DAYS, __CONTINUOUS_SCHEDULE)
+__WORK_CALENDAR = WorkCalendar(__CURRENT_DATE, __STANDARD_DELTA, __LAUNCH_DELTA, __FREE_DAYS)
 
 __START_HOUR = datetime(year=__CURRENT_DATE.year, month=1, day=7, hour=8, minute=0, second=0)
 __END_HOUR = datetime(year=__CURRENT_DATE.year, month=1, day=7, hour=17, minute=0, second=0)

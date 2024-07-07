@@ -1,4 +1,4 @@
-from datetime import timedelta, datetime, date
+from datetime import timedelta, datetime
 
 import pytest
 from holidays import country_holidays
@@ -12,30 +12,20 @@ __STANDARD_DELTA = timedelta(hours=8, minutes=15)
 __SHORT_DELTA = timedelta(hours=7)
 __LAUNCH_DELTA = timedelta(hours=0, minutes=45)
 
-__SHORT_DAY = 'Friday'
-__WEEKEND_DAYS = ['Saturday', 'Sunday']
+__SHORT_DAYS = ['Friday']
 __CURRENT_DATE = datetime(year=1997, month=5, day=20)
 __FREE_DAYS = country_holidays("ES", years=__CURRENT_DATE.year)
 
-__CONTINUOUS_DELTA = timedelta(hours=8, minutes=0)
-__CONTINUOUS_PERIOD_START = date(year=__CURRENT_DATE.year, month=5, day=20)
-__CONTINUOUS_PERIOD_END = date(year=__CURRENT_DATE.year, month=9, day=27)
-__CONTINUOUS_PERIOD = {
-    "start": __CONTINUOUS_PERIOD_START,
-    "end": __CONTINUOUS_PERIOD_END
-}
-__CONTINUOUS_SCHEDULE = Schedule(work_time=__CONTINUOUS_DELTA, period=__CONTINUOUS_PERIOD)
+_SHORT_SCHEDULE = Schedule(work_time=__SHORT_DELTA, days=__SHORT_DAYS)
 
-__WORK_CALENDAR = WorkCalendar(__CURRENT_DATE, __STANDARD_DELTA, __SHORT_DELTA, __LAUNCH_DELTA,
-                               [__SHORT_DAY], __FREE_DAYS, __CONTINUOUS_SCHEDULE)
+__WORK_CALENDAR = WorkCalendar(__CURRENT_DATE, __STANDARD_DELTA, __LAUNCH_DELTA, __FREE_DAYS,
+                               short_schedule=_SHORT_SCHEDULE)
 
-__START_HOUR = datetime(year=__CURRENT_DATE.year, month=7, day=7, hour=8, minute=0, second=0)
-__END_HOUR = datetime(year=__CURRENT_DATE.year, month=7, day=7, hour=17, minute=0, second=0)
-__WORKDAY = Workday(__START_HOUR, __END_HOUR)
+__WORKDAY = Workday(datetime(year=__CURRENT_DATE.year, month=7, day=7, hour=8, minute=0, second=0),
+                    datetime(year=__CURRENT_DATE.year, month=7, day=7, hour=17, minute=0, second=0))
 
-__START_HOUR = datetime(year=__CURRENT_DATE.year, month=7, day=11, hour=8, minute=0, second=0)
-__END_HOUR = datetime(year=__CURRENT_DATE.year, month=7, day=11, hour=15, minute=0, second=0)
-__SHORT_WORKDAY = Workday(__START_HOUR, __END_HOUR)
+__SHORT_WORKDAY = Workday(datetime(year=__CURRENT_DATE.year, month=7, day=11, hour=8, minute=0, second=0),
+                          datetime(year=__CURRENT_DATE.year, month=7, day=11, hour=15, minute=0, second=0))
 
 
 @pytest.mark.parametrize("day,expected_result", [
