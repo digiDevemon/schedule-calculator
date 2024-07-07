@@ -9,8 +9,8 @@ from schedule_calculator.time.assemblers.time_formatter import TimeFormatter
 class TimeEntryRepository:
     __TEMP_FILE_NAME = "schedule_calculator_time"
 
-    def __init__(self, time_formatter: TimeFormatter, temp_folder: str):
-        self.time_formatter = time_formatter
+    def __init__(self, temp_folder: str):
+        self.time_formatter = TimeFormatter()
         self.temp_folder = temp_folder
 
     def repository_contains_time(self) -> bool:
@@ -36,10 +36,8 @@ class TimeEntryRepository:
 
 
 def create_time_entry_repository():
-    time_formatter = TimeFormatter()
-    return TimeEntryRepository(time_formatter, tempfile.gettempdir())
+    return TimeEntryRepository(tempfile.gettempdir())
 
 
 def create_time_entry_repository_with_folder(temp_folder):
-    time_formatter = TimeFormatter()
-    return TimeEntryRepository(time_formatter, temp_folder)
+    return TimeEntryRepository(temp_folder)

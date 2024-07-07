@@ -11,18 +11,18 @@ __CURRENT_PATH = os.path.dirname(os.path.realpath(__file__))
 
 
 def it_should_return_false_when_check_data_exists_but_it_does_not_exist(time_repository):
-    assert time_repository.repository_contains_time() == False, "It should not contains data time saved"
+    assert not time_repository.repository_contains_time(), "It should not contains data time saved"
 
 
 def it_should_return_true_when_check_data_exists_and_it_exists(time_repository):
     time_repository.save_time_entry(__HOUR)
-    assert time_repository.repository_contains_time() == True, "It should contains data time saved"
+    assert time_repository.repository_contains_time(), "It should contains data time saved"
 
 
 def it_should_return_false_when_check_data_exists_and_it_exists_but_we_remove_it(time_repository):
     time_repository.save_time_entry(__HOUR)
     time_repository.remove_time_entry()
-    assert time_repository.repository_contains_time() == False, "It should not contains data time saved"
+    assert not time_repository.repository_contains_time(), "It should not contains data time saved"
 
 
 def it_should_return_the_expected_time(time_repository):

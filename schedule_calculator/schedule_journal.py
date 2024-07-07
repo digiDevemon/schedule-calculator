@@ -3,7 +3,6 @@ import datetime
 from schedule_calculator.calculus.workday_calculator import WorkDayCalculator
 from schedule_calculator.presenter import Presenter
 from schedule_calculator.time.assemblers.work_calendar_assembler import WorkCalendarAssembler
-from schedule_calculator.time.assemblers.time_formatter import TimeFormatter
 from schedule_calculator.time.assemblers.workday_assembler import WorkDayAssembler
 from schedule_calculator.time.clock import Clock
 from schedule_calculator.time.repository.time_entry_repository import TimeEntryRepository, create_time_entry_repository
@@ -42,10 +41,9 @@ class ScheduleJournal:
 
 
 def create_schedule_journal(configuration: dict) -> ScheduleJournal:
-    time_formatter = TimeFormatter()
     clock = Clock()
 
-    work_calendar = WorkCalendarAssembler(time_formatter, clock).get_work_calendar(configuration["work_calendar"])
+    work_calendar = WorkCalendarAssembler(clock).get_work_calendar(configuration["work_calendar"])
     time_entry_repository = create_time_entry_repository()
     presenter = Presenter()
 
@@ -54,7 +52,6 @@ def create_schedule_journal(configuration: dict) -> ScheduleJournal:
 
 def create_schedule_journal_for_testing(configuration: dict, time_entry_repository: TimeEntryRepository,
                                         clock: Clock, presenter: Presenter) -> ScheduleJournal:
-    time_formatter = TimeFormatter()
-    work_calendar = WorkCalendarAssembler(time_formatter, clock).get_work_calendar(configuration["work_calendar"])
+    work_calendar = WorkCalendarAssembler(clock).get_work_calendar(configuration["work_calendar"])
 
     return ScheduleJournal(WorkDayCalculator(work_calendar), time_entry_repository, presenter, clock)

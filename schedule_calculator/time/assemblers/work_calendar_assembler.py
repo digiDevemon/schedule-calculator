@@ -7,8 +7,8 @@ from schedule_calculator.time.work_calendar import WorkCalendar
 
 class WorkCalendarAssembler:
 
-    def __init__(self, time_formatter: TimeFormatter, clock: Clock):
-        self.time_formatter = time_formatter
+    def __init__(self, clock: Clock):
+        self.time_formatter = TimeFormatter()
         self.clock = clock
         self.holiday_calendar_assembler = FreeDaysCalendarAssembler()
         self.schedule_assembler = ScheduleAssembler()
